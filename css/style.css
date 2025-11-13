@@ -1665,6 +1665,9 @@ img {
   /* Modern, generous rounded corners */
   border-radius: 16px;
 
+  /* Increased bottom margin for better separation from glass pills */
+  margin-bottom: 2rem;
+
   /* Smooth, calm transitions */
   transition: all 0.4s ease;
 
@@ -1696,7 +1699,7 @@ img {
   display: flex;
   justify-content: center;
   gap: 1rem;
-  margin-top: var(--spacing-lg);
+  margin-top: 2rem;
   flex-wrap: wrap;
   position: relative;
   z-index: 1;
@@ -1842,6 +1845,17 @@ img {
   }
 }
 
+/* Tablet Responsive Adjustments */
+@media only screen and (max-width: 1024px) and (min-width: 769px) {
+  .glass-button {
+    margin-bottom: 1.75rem;
+  }
+
+  .glass-pills {
+    margin-top: 1.75rem;
+  }
+}
+
 /* Mobile Responsive Adjustments */
 @media only screen and (max-width: 768px) {
   .glass-button {
@@ -1849,13 +1863,14 @@ img {
     font-size: 1.05rem;
     width: 100%;
     max-width: 380px;
+    margin-bottom: 1.5rem;
   }
 
   .glass-pills {
     flex-direction: column;
     gap: 0.75rem;
     align-items: center;
-    margin-top: var(--spacing-md);
+    margin-top: 1.5rem;
   }
 
   .glass-pill {
