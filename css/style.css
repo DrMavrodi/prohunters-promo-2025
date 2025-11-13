@@ -487,7 +487,6 @@ img {
 
 .timeline-content:hover {
   box-shadow: var(--shadow-md);
-  transform: translateX(5px);
 }
 
 .timeline-content h3 {
