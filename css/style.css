@@ -652,16 +652,6 @@ img {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Subtle hover effect */
-@media (min-width: 769px) {
-  .moderator-accent-block {
-    transition: border-color 0.3s ease;
-  }
-
-  .moderator-accent-block:hover {
-    border-bottom-color: var(--color-red);
-  }
-}
 
 /* Mobile responsive */
 @media (max-width: 768px) {
