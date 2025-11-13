@@ -1364,20 +1364,102 @@ img {
 .sparkle:nth-child(7) { top: 80%; left: 35%; animation-delay: 1.2s; }
 .sparkle:nth-child(8) { top: 15%; left: 65%; animation-delay: 0.8s; }
 
-/* Special festive marker for award ceremony */
+/* ============================================
+   AWARD CEREMONY HIGHLIGHT
+   ============================================ */
+
+/* Enhanced Award Item Styling */
+.timeline-item.award .timeline-content {
+  position: relative;
+  padding: 24px;
+  background: linear-gradient(135deg, rgba(201, 169, 97, 0.08) 0%, rgba(26, 35, 50, 0.03) 100%);
+  border: 2px solid rgba(201, 169, 97, 0.3);
+  border-left: 4px solid var(--color-gold);
+  border-radius: 8px;
+  box-shadow:
+    0 8px 24px rgba(201, 169, 97, 0.15),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 8px 0;
+  transform: translateZ(0); /* GPU acceleration */
+}
+
+/* Gold Title for Award Item */
+.timeline-item.award .timeline-content h3 {
+  color: var(--color-gold);
+  font-weight: 600;
+  font-size: 1.1em;
+}
+
+/* Trophy Icon */
+.award-ceremony-icon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  color: var(--color-gold);
+  animation: award-glow 4s ease-in-out infinite;
+  will-change: filter;
+  pointer-events: none;
+}
+
+/* Glow Pulse Animation */
+@keyframes award-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px rgba(201, 169, 97, 0.3));
+    opacity: 0.9;
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(201, 169, 97, 0.6));
+    opacity: 1;
+  }
+}
+
+/* Timeline dot styling for award */
 .timeline-item.award::before {
   background: linear-gradient(135deg, var(--color-gold), var(--color-gold-dark));
-  box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.3), 0 0 15px rgba(201, 169, 97, 0.4);
-  animation: festiveGlow 2s ease-in-out infinite;
+  box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.3);
+  animation: none;
 }
 
-@keyframes festiveGlow {
-  0%, 100% { box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.3), 0 0 15px rgba(201, 169, 97, 0.4); }
-  50% { box-shadow: 0 0 0 5px rgba(201, 169, 97, 0.5), 0 0 25px rgba(201, 169, 97, 0.6); }
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .timeline-item.award .timeline-content {
+    padding: 20px;
+  }
+
+  .award-ceremony-icon {
+    width: 24px;
+    height: 24px;
+    top: 12px;
+    right: 12px;
+  }
+
+  .timeline-item.award .timeline-content h3 {
+    font-size: 1.05em;
+    padding-right: 32px; /* Space for icon */
+  }
+
+  /* Reduced animation intensity on mobile */
+  @keyframes award-glow {
+    0%, 100% {
+      filter: drop-shadow(0 0 3px rgba(201, 169, 97, 0.25));
+      opacity: 0.95;
+    }
+    50% {
+      filter: drop-shadow(0 0 8px rgba(201, 169, 97, 0.5));
+      opacity: 1;
+    }
+  }
 }
 
-.timeline-item.award .timeline-content {
-  border-left: 3px solid var(--color-gold);
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .award-ceremony-icon {
+    animation: none !important;
+    filter: drop-shadow(0 0 4px rgba(201, 169, 97, 0.3));
+    opacity: 1;
+  }
 }
 
 /* CTA Section snowflakes */
