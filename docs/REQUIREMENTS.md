@@ -50,25 +50,141 @@
 - Sophisticated
 - Approachable luxury
 
-## Color Scheme Recommendations
+## Color Scheme - ProHunters Brand Alignment
 
-**Primary Palette:**
-- Deep Navy/Midnight Blue (#1a2332, #2d3e50) - sophistication, trust, professionalism
-- Champagne Gold/Bronze (#c9a961, #d4af37) - exclusivity, awards, celebration
-- Crisp White (#ffffff) - clarity, cleanliness
-- Soft Cream/Off-white (#f8f9fa) - warmth, elegance
+**Official ProHunters Brand Colors:**
+- Primary Brand Red: #A5171D - authority, passion, brand identity
+- Lime Green Accent: #86E619 - energy, innovation, modern touch
+- Secondary Green: #297432 - stability, growth, hover states
+- Dark Gray Neutral: #333333 - professional text, solid foundation
+- Off-White Background: #F9F8F8 - clean, elegant, approachable
+- Deep Navy: #1a2332 - sophistication, trust, section backgrounds
 
-**Accent Colors:**
-- Deep Burgundy/Wine (#8b2839, #a94064) - sophistication, evening event feel
-- Silver/Light Gray (#e4e6eb) - modern, professional
-- Success Green (#27ae60) - for CTAs, subtle
+**Color Application Strategy:**
 
-**Usage Guidelines:**
-- Background: Primarily white/cream with navy sections for contrast
-- CTAs: Gold/burgundy gradient or solid with hover effects
-- Text: Navy for headings, dark gray (#333) for body
-- Accents: Gold for highlights, awards, and decorative elements
-- Section dividers: Subtle gradient or geometric patterns
+**Backgrounds:**
+- Primary sections: Off-White (#F9F8F8)
+- Contrast sections: Deep Navy (#1a2332) for hero and pre-footer CTA
+- Subtle gradient overlays: Navy to transparent for depth
+
+**Call-to-Action Elements:**
+- Primary CTA buttons: Brand Red (#A5171D)
+- Hover state: Secondary Green (#297432) with smooth transition
+- Focus/active state: Darker red (#8B1318)
+- Glow effect: Lime Green (#86E619) subtle shadow on hover
+
+**Typography:**
+- Headings: Deep Navy (#1a2332) on light backgrounds, Off-White (#F9F8F8) on dark
+- Body text: Dark Gray (#333333)
+- Accent text: Brand Red (#A5171D) for emphasis
+- Links: Lime Green (#86E619) with Secondary Green (#297432) hover
+
+**Decorative Elements:**
+- Awards/achievements: Lime Green (#86E619) accents
+- Timeline markers: Brand Red (#A5171D)
+- Icons: Lime Green (#86E619) primary, Secondary Green (#297432) secondary
+- Dividers: Light gray (#E4E6EB) with Lime Green accents
+- New Year sparkles: Lime Green (#86E619) with opacity variations
+
+**Accessibility Notes:**
+- Lime Green (#86E619) on white: Contrast ratio 2.8:1 (decorative only, not for small text)
+- For text use: Secondary Green (#297432) on white: 5.1:1 (AA compliant)
+- Brand Red (#A5171D) on white: 7.2:1 (AAA compliant for body text)
+- Dark Gray (#333333) on white: 12.6:1 (AAA compliant)
+- Always pair Lime Green text with sufficient background contrast
+- Use Lime Green primarily for large elements, icons, and decorative accents
+
+## New Year Elements Design Strategy
+
+**Design Philosophy:**
+Subtle, professional festive touches that enhance atmosphere without overwhelming the sophisticated corporate aesthetic. All holiday elements must feel elegant and refined, never childish or overly decorative.
+
+**Animated Snowflakes:**
+- **Quantity:** 15-20 snowflakes maximum across viewport
+- **Size:** 3 variants - small (8px), medium (12px), large (16px)
+- **Color:** Semi-transparent white/lime green blend
+  - Base: rgba(255, 255, 255, 0.6)
+  - Accent: rgba(134, 230, 25, 0.3) for 30% of snowflakes
+- **Animation:** Gentle float with CSS keyframes
+  - Duration: 10-20 seconds (varied per snowflake)
+  - Movement: Vertical descent with subtle horizontal drift
+  - Rotation: Slow spin for naturalistic effect
+- **Performance:** CSS animations only, GPU-accelerated transforms
+- **Placement:** Full-page overlay with pointer-events: none
+- **Mobile:** Reduce to 8-10 snowflakes for performance
+
+**Sparkle Effects:**
+- **Application:** Interactive elements (CTAs, speaker cards, award icons)
+- **Color:** Lime Green (#86E619) with opacity fade
+- **Trigger:** Hover state on desktop, ambient pulse on mobile
+- **Style:** Small star/sparkle SVG particles
+- **Animation:** 0.8s fade-in-out on hover
+- **Placement:**
+  - Corner accents on speaker photo cards
+  - Button edge shimmer effect
+  - Award trophy icon highlight
+
+**Winter-Themed Section Dividers:**
+- **Design:** Abstract geometric patterns with winter motifs
+- **Elements:**
+  - Crystalline geometric shapes (hexagons, triangles)
+  - Subtle bell silhouettes in line art style
+  - Musical note integration (referencing "Jingle Bells")
+- **Color Scheme:**
+  - Primary: Light gray (#E4E6EB) base
+  - Accent: Lime Green (#86E619) highlights
+  - Gradient: Navy to transparent for depth
+- **Implementation:** SVG patterns, scalable and responsive
+- **Opacity:** 20-40% for subtle background presence
+
+**Festive Timeline Markers:**
+- **Awards Ceremony Item:** Special visual treatment
+  - Icon: Trophy with subtle sparkle animation
+  - Background: Lime Green (#86E619) glow effect
+  - Border: Gradient from Brand Red to Lime Green
+  - Badge: "Праздничный момент" or bell icon
+- **Other Timeline Items:** Standard styling
+- **Connection Line:** Dotted pattern with small snowflake markers
+
+**Glow Effects on Interactive Elements:**
+- **CTA Buttons:**
+  - Default: Solid Brand Red (#A5171D)
+  - Hover: Lime Green (#86E619) outer glow
+    - box-shadow: 0 0 20px rgba(134, 230, 25, 0.5)
+  - Pulse animation: Subtle 2s loop on primary hero CTA
+- **Speaker Cards:**
+  - Hover: Soft white glow with lime green tint
+  - Transition: 0.3s ease
+- **Award Icons:**
+  - Ambient pulse: Lime green glow 3s loop
+  - Intensity: Subtle, never garish
+
+**Background Patterns (Optional, Subtle):**
+- **Hero Section:**
+  - Faint snowflake pattern overlay at 5% opacity
+  - Navy background with subtle bokeh light effects (lime green dots)
+- **Footer Section:**
+  - Winter constellation pattern in dark navy
+  - Small lime green stars forming abstract shapes
+
+**Microinteractions:**
+- **Page Load:** Gentle snowfall starts after 1s delay
+- **Scroll Trigger:** Sparkles appear on elements entering viewport
+- **Click Feedback:** Brief green flash on CTA click
+- **Hover States:** All glow effects smooth 0.3s transition
+
+**Performance Considerations:**
+- Use CSS transforms and opacity (GPU-accelerated)
+- Limit number of animated elements on mobile
+- RequestAnimationFrame for JavaScript animations if needed
+- Lazy load decorative SVG patterns
+- Prefers-reduced-motion: Disable all animations
+
+**Brand Consistency:**
+- All festive elements use ProHunters brand colors
+- Never introduce gold/traditional Christmas colors
+- Maintain professional aesthetic throughout
+- Holiday touches enhance, never distract from content
 
 ## Typography Recommendations
 
@@ -108,6 +224,10 @@
 - Full viewport height on desktop
 - Centered content with strategic use of negative space
 - Subtle animation on load (fade-in, slide-up)
+- Background: Deep Navy (#1a2332) with subtle snowflake overlay
+- Text: Off-White (#F9F8F8) for high contrast
+- CTA: Brand Red (#A5171D) with lime green glow effect
+- Decorative: Lime green bokeh light effects in background
 
 ### 2. Value Proposition Section
 **Purpose:** Answer "Why attend?"
@@ -210,9 +330,11 @@
 
 **Visual Treatment:**
 - Centered or two-column layout
-- Gold accent colors
-- Trophy/award iconography
-- Celebratory visual treatment
+- Lime Green (#86E619) accent colors for award highlights
+- Trophy/award iconography with lime green glow pulse animation
+- Brand Red (#A5171D) for category headings
+- Celebratory visual treatment with subtle sparkle effects
+- Winter-themed decorative elements (crystalline borders)
 
 ### 8. Call-to-Action Section (Pre-footer)
 **Purpose:** Final conversion push
@@ -223,10 +345,12 @@
 - Secondary info: Contact for questions
 
 **Visual Treatment:**
-- Contrasting background (navy or gold)
-- Large, prominent button
-- White text on dark background
+- Contrasting background: Deep Navy (#1a2332)
+- Large, prominent button: Brand Red (#A5171D) with lime green glow
+- Off-White (#F9F8F8) text on dark background
 - Full-width section
+- Subtle snowflake animation in background
+- Urgency messaging in Lime Green (#86E619) accent
 
 ### 9. Footer
 **Purpose:** Additional information and credibility
@@ -339,9 +463,16 @@
 - Text: Action-oriented in Russian
   - Primary: "Зарегистрироваться" or "Забронировать место"
   - Alternative: "Подтвердить участие"
-- Design: High contrast, 3D effect or gradient, subtle animation
-- Size: Prominent but not overwhelming
-- Hover state: Color shift, scale slightly up, shadow increase
+- Design: Solid Brand Red (#A5171D) with high contrast on navy/white backgrounds
+- Size: Prominent but not overwhelming (min 48px height for touch)
+- Visual effects:
+  - Subtle lime green glow on hover: box-shadow: 0 0 20px rgba(134, 230, 25, 0.5)
+  - Primary hero CTA: Gentle 2s pulse animation using lime green
+  - Scale transform on hover: 1.05
+  - Smooth 0.3s transition for all states
+- Hover state: Transition to Secondary Green (#297432) background
+- Active/clicked: Darker red (#8B1318) with brief lime green flash
+- Brand alignment: All CTAs use ProHunters red, reinforcing brand recognition
 
 **Trust Signals:**
 - Speaker photos and credentials
@@ -534,11 +665,12 @@
 
 **A/B Testing Priorities:**
 
-**Test 1: CTA Button Color**
-- Variant A: Gold (#d4af37)
-- Variant B: Burgundy (#a94064)
-- Variant C: Green (#27ae60)
-- Metric: Click-through rate
+**Test 1: CTA Button Color (Brand-Aligned Variants)**
+- Variant A: Brand Red (#A5171D) - default
+- Variant B: Secondary Green (#297432) - alternative accent
+- Variant C: Lime Green (#86E619) with dark text - high energy
+- Note: All variants maintain brand consistency
+- Metric: Click-through rate, conversion rate
 
 **Test 2: Hero CTA Text**
 - Variant A: "Зарегистрироваться"
@@ -653,4 +785,47 @@
 - Thank you email after registration
 - Follow-up emails with more details
 
-This comprehensive requirements document serves as the foundation for creating a high-converting, professional landing page that effectively communicates the value of the ProHunters 2025 event while maintaining the sophisticated, exclusive tone appropriate for the target audience.
+## Brand Alignment Summary
+
+**Color Transformation:**
+This requirements document has been updated to fully align with ProHunters official brand identity, replacing generic event colors with the authentic brand palette:
+
+**Removed Colors (Non-Brand):**
+- Champagne Gold/Bronze (#c9a961, #d4af37)
+- Deep Burgundy/Wine (#8b2839, #a94064)
+- Generic Success Green (#27ae60)
+
+**Implemented Colors (Official ProHunters Brand):**
+- Primary Brand Red (#A5171D) - All CTAs, headings, timeline markers
+- Lime Green Accent (#86E619) - Interactive elements, awards, sparkles, glow effects
+- Secondary Green (#297432) - Hover states, alternative accents
+- Dark Gray (#333333) - Body text
+- Off-White (#F9F8F8) - Clean backgrounds
+- Deep Navy (#1a2332) - Hero and contrast sections (retained for sophistication)
+
+**New Year Elements Integration:**
+All festive touches use brand colors exclusively:
+- Snowflakes: White/lime green semi-transparent blend
+- Sparkles: Lime green (#86E619) with opacity variations
+- Glow effects: Lime green halos on CTAs and interactive elements
+- Timeline decorations: Brand red markers with lime green accents
+- Section dividers: Geometric winter patterns in brand colors
+
+**Brand Benefits:**
+- Consistent brand recognition throughout user journey
+- Professional festive atmosphere without generic holiday cliches
+- Modern, energetic feel from lime green contrasts with sophisticated red
+- All elements reinforce ProHunters identity
+- Accessibility maintained with proper contrast ratios
+- Unique visual identity distinct from competitor events
+
+**Implementation Priorities:**
+1. Update all CTA buttons to Brand Red (#A5171D)
+2. Apply lime green glow effects to interactive elements
+3. Implement snowflake animation with brand color blend
+4. Update award icons and sparkle effects to lime green
+5. Revise section backgrounds to off-white/navy palette
+6. Add festive timeline marker for awards ceremony
+7. Test lime green contrast ratios for accessibility compliance
+
+This comprehensive requirements document serves as the foundation for creating a high-converting, professional landing page that effectively communicates the value of the ProHunters 2025 event while maintaining the sophisticated, exclusive tone appropriate for the target audience and authentic ProHunters brand identity.

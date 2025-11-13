@@ -5,18 +5,22 @@
    ========================================================================== */
 
 :root {
-  /* Color Palette */
+  /* Color Palette - ProHunters Brand Colors */
   --color-navy: #1a2332;
   --color-navy-light: #2d3e50;
-  --color-gold: #c9a961;
-  --color-gold-dark: #b8924d;
+  --color-gold: #C9A961;
+  --color-gold-dark: #A88B4A;
   --color-white: #ffffff;
   --color-cream: #f8f9fa;
-  --color-burgundy: #8b2839;
-  --color-burgundy-light: #a94064;
+  --color-red: #A5171D;
+  --color-red-light: #c91f26;
   --color-silver: #e4e6eb;
   --color-text: #333333;
   --color-text-light: #666666;
+
+  /* Legacy color mappings for backward compatibility */
+  --color-burgundy: var(--color-red);
+  --color-burgundy-light: var(--color-red-light);
 
   /* Spacing */
   --spacing-xs: 0.5rem;
@@ -974,6 +978,145 @@ img {
 
   .cta-content p {
     font-size: 1rem;
+  }
+}
+
+/* ==========================================================================
+   New Year Elements - Subtle & Professional
+   ========================================================================== */
+
+/* Snowflakes Container */
+.snowflakes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.snowflake {
+  position: absolute;
+  top: -10px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.2em;
+  user-select: none;
+  animation: fall linear infinite;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  90% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Snowflake positions and timings */
+.snowflake:nth-child(1) { left: 10%; animation-duration: 15s; animation-delay: 0s; font-size: 1em; }
+.snowflake:nth-child(2) { left: 20%; animation-duration: 18s; animation-delay: 2s; font-size: 0.8em; }
+.snowflake:nth-child(3) { left: 30%; animation-duration: 20s; animation-delay: 4s; font-size: 1.2em; }
+.snowflake:nth-child(4) { left: 40%; animation-duration: 16s; animation-delay: 1s; font-size: 0.9em; }
+.snowflake:nth-child(5) { left: 50%; animation-duration: 19s; animation-delay: 3s; font-size: 1.1em; }
+.snowflake:nth-child(6) { left: 60%; animation-duration: 17s; animation-delay: 5s; font-size: 0.85em; }
+.snowflake:nth-child(7) { left: 70%; animation-duration: 21s; animation-delay: 2.5s; font-size: 1em; }
+.snowflake:nth-child(8) { left: 80%; animation-duration: 16s; animation-delay: 4.5s; font-size: 0.95em; }
+.snowflake:nth-child(9) { left: 90%; animation-duration: 18s; animation-delay: 1.5s; font-size: 1.15em; }
+.snowflake:nth-child(10) { left: 15%; animation-duration: 20s; animation-delay: 6s; font-size: 0.9em; }
+.snowflake:nth-child(11) { left: 25%; animation-duration: 17s; animation-delay: 3.5s; font-size: 1.05em; }
+.snowflake:nth-child(12) { left: 35%; animation-duration: 19s; animation-delay: 5.5s; font-size: 0.88em; }
+
+/* Sparkle elements for hero section */
+.sparkles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--color-gold);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--color-gold), 0 0 20px rgba(201, 169, 97, 0.5);
+  animation: twinkle 3s ease-in-out infinite;
+  opacity: 0;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.5); }
+}
+
+/* Sparkle positions */
+.sparkle:nth-child(1) { top: 20%; left: 15%; animation-delay: 0s; }
+.sparkle:nth-child(2) { top: 30%; left: 85%; animation-delay: 1s; }
+.sparkle:nth-child(3) { top: 60%; left: 25%; animation-delay: 2s; }
+.sparkle:nth-child(4) { top: 70%; left: 75%; animation-delay: 0.5s; }
+.sparkle:nth-child(5) { top: 40%; left: 10%; animation-delay: 1.5s; }
+.sparkle:nth-child(6) { top: 50%; left: 90%; animation-delay: 2.5s; }
+.sparkle:nth-child(7) { top: 80%; left: 35%; animation-delay: 1.2s; }
+.sparkle:nth-child(8) { top: 15%; left: 65%; animation-delay: 0.8s; }
+
+/* Special festive marker for award ceremony */
+.timeline-item.award::before {
+  background: linear-gradient(135deg, var(--color-gold), var(--color-gold-dark));
+  box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.3), 0 0 15px rgba(201, 169, 97, 0.4);
+  animation: festiveGlow 2s ease-in-out infinite;
+}
+
+@keyframes festiveGlow {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.3), 0 0 15px rgba(201, 169, 97, 0.4); }
+  50% { box-shadow: 0 0 0 5px rgba(201, 169, 97, 0.5), 0 0 25px rgba(201, 169, 97, 0.6); }
+}
+
+.timeline-item.award .timeline-content {
+  border-left: 3px solid var(--color-gold);
+}
+
+/* CTA Section snowflakes */
+.cta-section .snowflakes .snowflake {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Performance optimization: reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .snowflake,
+  .sparkle,
+  .timeline-item.award::before {
+    animation: none;
+  }
+
+  .snowflake {
+    display: none;
+  }
+}
+
+/* Hide decorative elements on smaller screens to maintain performance */
+@media only screen and (max-width: 768px) {
+  .sparkle {
+    display: none;
+  }
+
+  .snowflake:nth-child(n+7) {
+    display: none;
   }
 }
 
