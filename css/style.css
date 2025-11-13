@@ -572,55 +572,101 @@ img {
   }
 }
 
-/* ==========================================================================
-   Moderator Section
-   ========================================================================== */
+/* ============================================
+   MODERATOR ACCENT BLOCK (INTEGRATED)
+   ============================================ */
 
-.moderator {
-  padding: var(--spacing-xxl) 0;
-  background-color: var(--color-cream);
-}
-
-.moderator-card {
-  max-width: 600px;
-  margin: 0 auto;
+.moderator-accent {
+  margin: 2rem 0 2rem 4rem;
+  padding: 1.5rem;
   background: var(--color-white);
+  border: 2px solid var(--color-gold);
   border-radius: 12px;
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
   display: flex;
-  flex-direction: column;
   align-items: center;
-  padding: var(--spacing-lg);
-  text-align: center;
+  gap: 1.5rem;
+  max-width: 750px;
+  transition: all 0.3s ease;
 }
 
-.moderator-photo {
-  width: 200px;
-  height: 200px;
+.moderator-accent:hover {
+  border-color: var(--color-red);
+  box-shadow: 0 4px 12px rgba(201, 169, 97, 0.15);
+}
+
+.moderator-accent-photo {
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   overflow: hidden;
-  margin-bottom: var(--spacing-md);
-  border: 5px solid var(--color-gold);
-  box-shadow: var(--shadow-md);
+  flex-shrink: 0;
+  border: 3px solid var(--color-gold);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.moderator-photo img {
+.moderator-accent-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
 }
 
-.moderator-info h3 {
-  font-size: 1.8rem;
+.moderator-accent-info {
+  flex: 1;
+}
+
+.moderator-accent-info h4 {
+  font-size: 1.3rem;
   color: var(--color-navy);
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: 0.25rem;
+  font-weight: 700;
+  font-family: var(--font-heading);
 }
 
-.moderator-title {
+.moderator-accent-info .moderator-role {
+  font-size: 0.9rem;
   color: var(--color-text-light);
-  font-size: 1.1rem;
-  line-height: 1.6;
+  font-style: italic;
+  display: block;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .moderator-accent {
+    flex-direction: column;
+    text-align: center;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding: 1.25rem;
+  }
+
+  .moderator-accent-photo {
+    width: 80px;
+    height: 80px;
+    border-width: 2px;
+  }
+
+  .moderator-accent-info h4 {
+    font-size: 1.1rem;
+  }
+
+  .moderator-accent-info .moderator-role {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .moderator-accent {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .moderator-accent {
+    transition: none;
+  }
 }
 
 /* ==========================================================================
@@ -843,15 +889,6 @@ img {
 
   .timeline-item::before {
     left: 3px;
-  }
-
-  .moderator-card {
-    flex-direction: column;
-  }
-
-  .moderator-photo {
-    width: 150px;
-    height: 150px;
   }
 
   .venue-map {
