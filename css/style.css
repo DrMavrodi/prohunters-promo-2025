@@ -1722,21 +1722,45 @@ img {
   padding: 0.75rem 1.5rem;
   border-radius: 50px;
 
-  /* Typography */
+  /* Typography - locked color */
   font-size: 1rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.95);
+  color: rgba(255, 255, 255, 0.95) !important;
+  text-decoration: none;
 
-  /* Smooth transitions */
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Smooth transitions - excludes color properties */
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              border 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              backdrop-filter 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
 }
 
-/* Glass pill icons */
-.glass-pill .icon {
+/* Glass pill text - locked color on all states */
+.glass-pill span {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Glass pill icons - locked color on all states */
+.glass-pill .icon,
+.glass-pill svg {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
   opacity: 0.9;
+  color: rgba(255, 255, 255, 0.95) !important;
+  stroke: currentColor !important;
+  fill: none !important;
+}
+
+/* Lock colors on hover state */
+.glass-pill:hover,
+.glass-pill:hover span,
+.glass-pill:hover .icon,
+.glass-pill:hover svg {
+  color: rgba(255, 255, 255, 0.95) !important;
 }
 
 /* Glass pill hover effect */
@@ -1747,6 +1771,54 @@ img {
   box-shadow:
     0 6px 20px rgba(0, 0, 0, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Lock colors on active state */
+.glass-pill:active,
+.glass-pill:active span,
+.glass-pill:active .icon,
+.glass-pill:active svg {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Glass pill active (click) effect */
+.glass-pill:active {
+  transform: translateY(0);
+  box-shadow:
+    0 3px 12px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Lock colors on focus state */
+.glass-pill:focus,
+.glass-pill:focus span,
+.glass-pill:focus .icon,
+.glass-pill:focus svg {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Glass pill focus state for keyboard navigation */
+.glass-pill:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 3px;
+}
+
+.glass-pill:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.glass-pill:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 3px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Lock colors on focus-visible state */
+.glass-pill:focus-visible,
+.glass-pill:focus-visible span,
+.glass-pill:focus-visible .icon,
+.glass-pill:focus-visible svg {
+  color: rgba(255, 255, 255, 0.95) !important;
 }
 
 /* Optional: Add subtle animation to glass elements */
