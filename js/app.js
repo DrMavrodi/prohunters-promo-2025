@@ -134,3 +134,42 @@ document.addEventListener('keydown', (e) => {
 modal.querySelector('.modal-content').addEventListener('click', (e) => {
   e.stopPropagation();
 });
+
+// ============================================
+// AWARD CONFETTI PERFORMANCE OPTIMIZATION
+// ============================================
+
+// Pause confetti animation when award block is off-screen
+document.addEventListener('DOMContentLoaded', () => {
+  const awardBlock = document.querySelector('.timeline-item.award');
+
+  if (!awardBlock) return;
+
+  const confettiContainer = awardBlock.querySelector('.award-confetti-container');
+
+  if (!confettiContainer) return;
+
+  // Intersection Observer to pause/resume animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Resume animation when in viewport
+        confettiContainer.style.animationPlayState = 'running';
+        confettiContainer.querySelectorAll('.confetti-particle').forEach(particle => {
+          particle.style.animationPlayState = 'running';
+        });
+      } else {
+        // Pause animation when off-screen
+        confettiContainer.style.animationPlayState = 'paused';
+        confettiContainer.querySelectorAll('.confetti-particle').forEach(particle => {
+          particle.style.animationPlayState = 'paused';
+        });
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '50px'
+  });
+
+  observer.observe(awardBlock);
+});
