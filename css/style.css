@@ -1387,7 +1387,7 @@ img {
 .timeline-item.award .timeline-content h3 {
   color: var(--color-gold);
   font-weight: 600;
-  font-size: 1.1em;
+  /* font-size removed - now matches other event titles */
 }
 
 /* Trophy Icon */
