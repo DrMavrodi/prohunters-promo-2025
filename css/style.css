@@ -429,8 +429,8 @@ img {
 .timeline::before {
   content: '';
   position: absolute;
-  left: 0;
-  top: 0;
+  left: 1.5px;
+  top: 5px;
   bottom: 0;
   width: 3px;
   background: linear-gradient(180deg, var(--color-gold), var(--color-burgundy));
@@ -446,7 +446,7 @@ img {
 .timeline-item::before {
   content: '';
   position: absolute;
-  left: -7px;
+  left: -8px;
   top: 5px;
   width: 16px;
   height: 16px;
@@ -933,7 +933,8 @@ img {
   }
 
   .timeline::before {
-    left: 10px;
+    left: 11.5px;
+    top: 5px;
   }
 
   .timeline-item {
@@ -941,7 +942,7 @@ img {
   }
 
   .timeline-item::before {
-    left: 3px;
+    left: 5px;
   }
 
   .venue-map {
