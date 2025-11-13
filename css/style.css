@@ -230,26 +230,51 @@ img {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-navy-light) 50%, var(--color-burgundy) 100%);
+  /* Smooth 6-color animated gradient: Grey → Blue → Light Blue → Green → Purple → Red → Grey */
+  background: linear-gradient(
+    135deg,
+    #2a2e3a 0%,      /* Dark grey */
+    #1a2d4a 16.66%,  /* Deep navy blue */
+    #2d3e56 33.33%,  /* Slate blue (dark but lighter than navy) */
+    #1a3d2e 50%,     /* Deep forest green */
+    #2d1a3d 66.66%,  /* Deep purple/plum */
+    #3d1a1f 83.33%,  /* Deep burgundy/maroon (dark red) */
+    #2a2e3a 100%     /* Back to dark grey (seamless loop) */
+  );
+  /* Large background-size for smooth, gradual transitions */
+  background-size: 700% 700%;
+  /* Smooth continuous animation with linear easing */
+  animation: smooth-gradient 30s linear infinite;
+  /* GPU acceleration hints for performance */
+  will-change: background-position;
+  transform: translateZ(0);
   z-index: -1;
 }
 
-.hero-background::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image:
-    radial-gradient(circle at 20% 50%, rgba(201, 169, 97, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(169, 64, 100, 0.1) 0%, transparent 50%);
-  animation: float 20s ease-in-out infinite;
+/* Smooth gradient animation - constant speed, no pauses */
+@keyframes smooth-gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+/* Mobile optimization - slightly slower and smaller gradient */
+@media only screen and (max-width: 768px) {
+  .hero-background {
+    background-size: 600% 600%;
+    animation-duration: 35s;
+  }
+}
+
+/* Accessibility: Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .hero-background {
+    animation: none !important;
+    background-position: 0% 50%;
+  }
 }
 
 .hero-content {
