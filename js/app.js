@@ -12,35 +12,38 @@ const speakersData = {
   },
   'zaura-karakozhaeva': {
     name: 'Заура Каракожаева',
-    position: 'Консультант-аналитик ProHunters<br>HR Advisor в NCOC.<br>15 лет опыта в HR (Total Rewards) в FMCG, Telecom, Mining, Oil & Gas.',
+    position: 'Консультант-аналитик ProHunters,<br>HR Advisor в NCOC',
     photo: 'img/zaura_karakozhaeva.jpg',
-    bio: `<p><strong>Экспертиза:</strong></p>
+    bio: `<p>15 лет опыта в HR (Total Rewards) в FMCG, Telecom, Mining, Oil & Gas.</p>
+          <p><strong>Экспертиза:</strong></p>
           <ul>
-            <li>компенсации и льготы</li>
-            <li>бюджетирование</li>
-            <li>аналитика заработных плат</li>
-            <li>HR-аналитика</li>
-            <li>грейдирование</li>
+            <li>Компенсации и льготы.</li>
+            <li>Бюджетирование.</li>
+            <li>Аналитика заработных плат.</li>
+            <li>HR-аналитика.</li>
+            <li>Грейдирование.</li>
           </ul>`,
     topic: null
   },
   'natalia-timofeeva': {
     name: 'Наталья Тимофеева',
-    position: 'Внешний консультант ProHunters<br>HRD, C&B директор с 20-летним опытом в KPMG, Veon, Абсолют банк и других компаниях.',
+    position: 'Внешний консультант ProHunters',
     photo: 'img/natalia_timofeeva.jpg',
-    bio: '',
+    bio: 'HRD, C&B директор с 20-летним опытом в KPMG, Veon, «Абсолют Банк» и других компаниях.',
     topic: null
   },
   'rada-islamova': {
     name: 'Рада Исламова',
-    position: 'Основательница Heartful Leadership Academy.<br>Международный тренер по медитации и йоге Heartfulness.<br>Основательница Wonder Women и менторской программы Wonder Women Mentorship.<br>Со-автор первого в Казахстане исследования «Гендерный баланс в IT-индустрии Казахстана».',
+    position: 'Основательница Heartful Leadership Academy',
     photo: 'img/rada_islamova.jpg',
-    bio: '',
+    bio: `<p>Международный тренер по медитации и йоге Heartfulness.</p>
+          <p>Основательница Wonder Women и менторской программы Wonder Women Mentorship.</p>
+          <p>Соавтор первого в Казахстане исследования «Гендерный баланс в IT-индустрии Казахстана».</p>`,
     topic: '«Сотрудник в 2025: я выбираю себя. Как компаниям превратить этот тренд в пользу для бизнеса.»'
   },
   'lana-chuksina': {
     name: 'Лана Чуксина',
-    position: 'Тимлид отдела PR & Communications.',
+    position: 'Тимлид отдела PR & Communications',
     photo: 'img/lana_chuksina.jpg',
     bio: '',
     topic: '«Inside Out: как внутренняя культура формирует внешний имидж компании»'
