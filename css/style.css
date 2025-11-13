@@ -1485,51 +1485,63 @@ img {
   left: var(--start-x);
   opacity: 0;
   will-change: transform, opacity;
-  animation: confetti-fall 4.5s ease-in infinite;
+  animation: confetti-fall 6s ease-in-out infinite;
   animation-delay: var(--delay);
 }
 
-/* Gold Confetti (Rectangle) */
+/* Gold Confetti - Soft Glowing Light Particles */
 .confetti-particle.gold {
-  width: 3px;
+  width: 8px;
   height: 8px;
-  background: linear-gradient(135deg, #C9A961 0%, #A88B4A 100%);
-  border-radius: 1px;
-  box-shadow: 0 0 4px rgba(201, 169, 97, 0.6);
-}
-
-/* Red Confetti (Circle) */
-.confetti-particle.red {
-  width: 3px;
-  height: 3px;
-  background: radial-gradient(circle, #c91f26 0%, #A5171D 100%);
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.9) 0%, rgba(201, 169, 97, 0.7) 40%, transparent 90%);
   border-radius: 50%;
-  box-shadow: 0 0 3px rgba(165, 23, 29, 0.5);
+  box-shadow:
+    0 0 10px rgba(255, 215, 0, 0.8),
+    0 0 20px rgba(201, 169, 97, 0.5),
+    0 0 30px rgba(201, 169, 97, 0.3);
+  filter: blur(1px);
 }
 
-/* Navy Confetti (Thin Rectangle) */
+/* Red Confetti - Elegant Glowing Accent */
+.confetti-particle.red {
+  width: 7px;
+  height: 7px;
+  background: radial-gradient(circle, rgba(201, 31, 38, 0.85) 0%, rgba(165, 23, 29, 0.6) 40%, transparent 90%);
+  border-radius: 50%;
+  box-shadow:
+    0 0 8px rgba(165, 23, 29, 0.7),
+    0 0 16px rgba(165, 23, 29, 0.4),
+    0 0 24px rgba(165, 23, 29, 0.2);
+  filter: blur(0.8px);
+}
+
+/* Navy Confetti - Subtle Premium Accent */
 .confetti-particle.navy {
-  width: 2px;
+  width: 6px;
   height: 6px;
-  background: linear-gradient(180deg, #2d3e50 0%, #1a2332 100%);
-  border-radius: 1px;
-  box-shadow: 0 0 2px rgba(26, 35, 50, 0.4);
+  background: radial-gradient(circle, rgba(45, 62, 80, 0.8) 0%, rgba(26, 35, 50, 0.5) 40%, transparent 90%);
+  border-radius: 50%;
+  box-shadow:
+    0 0 6px rgba(45, 62, 80, 0.6),
+    0 0 12px rgba(26, 35, 50, 0.3),
+    0 0 18px rgba(26, 35, 50, 0.15);
+  filter: blur(0.7px);
 }
 
-/* Confetti Fall Animation */
+/* Confetti Fall Animation - Graceful and Elegant */
 @keyframes confetti-fall {
   0% {
-    transform: translateY(0) translateX(0) rotate(0deg);
+    transform: translateY(0) translateX(0) rotate(0deg) scale(0.8);
     opacity: 0;
   }
-  10% {
-    opacity: 0.85;
+  15% {
+    opacity: 0.9;
   }
   85% {
     opacity: 0.7;
   }
   100% {
-    transform: translateY(280px) translateX(var(--drift-x)) rotate(var(--rotation));
+    transform: translateY(320px) translateX(var(--drift-x)) rotate(25deg) scale(1.1);
     opacity: 0;
   }
 }
