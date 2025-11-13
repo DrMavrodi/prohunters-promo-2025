@@ -1,0 +1,29 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//ProHunters//Event Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:prohunters2025@prohunters.kz
+DTSTAMP:20251113T120000Z
+ORGANIZER;CN="Aida Shagiyeva":MAILTO:aida@prohunters.kz
+DTSTART;TZID=Asia/Almaty:20251209T160000
+DTEND;TZID=Asia/Almaty:20251209T220000
+SUMMARY:Итоги ProHunters 2025
+LOCATION:г. Алматы\, пр. Достык 132Б\, Event-ресторан Le Dome
+URL:https://2025.prohunters.kz
+DESCRIPTION:Приглашаем вас на закрытое и незабываемое мероприятие\, где 
+ будут представлены результаты актуального исследования рынка труда и 
+ награждены лучшие компании\, заслужившие признание в 2025 году.\n\nМесто: 
+ г. Алматы\, пр. Достык 132Б\,\nEvent-ресторан Le Dome\n\nОткрыть на карте:\n
+ https://www.google.com/maps?q=Le+Dome+Almaty+Dostyk+132B
+STATUS:CONFIRMED
+PRIORITY:1
+SEQUENCE:0
+BEGIN:VALARM
+TRIGGER:-P1D
+DESCRIPTION:Напоминание о мероприятии
+ACTION:DISPLAY
+END:VALARM
+END:VEVENT
+END:VCALENDAR
