@@ -1251,6 +1251,10 @@ img {
   text-decoration-color: rgba(201, 169, 97, 0.4);
   text-underline-offset: 2px;
   transition: all 200ms ease;
+  padding: 8px 4px;
+  display: inline-block;
+  min-height: 44px;
+  line-height: 1.75;
 }
 
 .cta-note a:hover {
@@ -1393,8 +1397,13 @@ img {
     grid-template-columns: 1fr;
   }
 
+  .benefit-card {
+    backdrop-filter: blur(12px) saturate(120%) brightness(1.05);
+    -webkit-backdrop-filter: blur(12px) saturate(120%) brightness(1.05);
+  }
+
   .timeline::before {
-    left: 11.5px;
+    left: 9px;
     top: 5px;
   }
 
@@ -1403,11 +1412,26 @@ img {
   }
 
   .timeline-item::before {
-    left: 5px;
+    left: 0px;
   }
 
   .venue-map {
     height: 300px;
+  }
+
+  .map-link {
+    padding: 12px 20px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .cta-section {
+    padding: 64px 0;
+  }
+
+  .footer {
+    padding: 48px 0 32px;
   }
 
   .cta-button {
@@ -1435,13 +1459,51 @@ img {
     font-size: 0.95rem;
   }
 
+  .hero-logo,
+  .footer-logo img {
+    max-width: 120px;
+  }
+
+  .benefit-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .benefit-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .venue-detail .icon {
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+  }
+
   .benefit-card {
-    padding: var(--spacing-md);
+    padding: 24px 20px;
+  }
+
+  .venue-detail,
+  .timeline-content {
+    padding: 20px 16px;
+  }
+
+  .venue-map {
+    height: 250px;
   }
 
   .timeline-time {
-    font-size: 0.85rem;
-    padding: 0.3rem 0.8rem;
+    font-size: 0.875rem;
+    padding: 0.6rem 1rem;
+  }
+
+  .cta-section {
+    padding: 48px 0;
+  }
+
+  .footer {
+    padding: 40px 0 24px;
   }
 
   .cta-content h2 {
@@ -1450,6 +1512,11 @@ img {
 
   .cta-content p {
     font-size: 1rem;
+  }
+
+  .cta-note {
+    padding: 12px 20px;
+    font-size: 0.875rem;
   }
 }
 
@@ -2433,6 +2500,41 @@ img {
   .glass-pill .icon {
     width: 18px;
     height: 18px;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .glass-pill {
+    max-width: calc(100vw - 2rem);
+  }
+
+  .hero-logo,
+  .footer-logo img {
+    max-width: 100px;
+  }
+
+  .benefit-icon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .venue-detail .icon {
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+  }
+
+  .venue-detail,
+  .timeline-content {
+    padding: 16px 12px;
+  }
+
+  .benefit-card {
+    padding: 24px 20px;
+  }
+
+  .venue-map {
+    height: 220px;
   }
 }
 
