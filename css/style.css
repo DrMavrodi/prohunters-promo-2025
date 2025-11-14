@@ -610,8 +610,8 @@ img {
 .timeline::before {
   content: '';
   position: absolute;
-  left: 1.5px;
-  top: 5px;
+  left: 1.8px;
+  top: 10px;
   bottom: 0;
   width: 3px;
   background: linear-gradient(
@@ -778,7 +778,7 @@ img {
 /* Award ceremony gold title */
 .timeline-item.award .timeline-content h3 {
   color: rgba(168, 139, 74, 1);
-  text-shadow: 0 2px 4px rgba(201, 169, 97, 0.3);
+  /*text-shadow: 0 2px 4px rgba(201, 169, 97, 0.3);*/
 }
 
 .timeline-content ul {
