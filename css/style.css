@@ -1274,7 +1274,6 @@ img {
   margin-top: 80px;
   padding: 0;
   position: relative;
-  z-index: 10;
   overflow: visible;
 
   /* Remove any background - it's transparent/glass only */
@@ -1289,8 +1288,8 @@ img {
   -webkit-backdrop-filter: blur(14px) saturate(120%);
 
   /* Delicate border and shadow */
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-bottom: none;
+  /*border: 1px solid rgba(255, 255, 255, 0.12);*/
+  border: none;
   border-radius: 20px 20px 0 0;
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.12),
@@ -1307,7 +1306,7 @@ img {
 
   /* Position */
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 /* Subtle refraction glow overlay */
@@ -2849,7 +2848,6 @@ img {
 /* Ensure content is above background layers */
 .footer > .container {
   position: relative;
-  z-index: 1;
 }
 
 /* ============================================
@@ -3150,7 +3148,7 @@ img {
 /* Layout containment for performance */
 .benefits,
 .venue,
-.footer,
+/*.footer,*/ /* fix for snow */
 .program,
 .cta-section {
   contain: layout paint;
