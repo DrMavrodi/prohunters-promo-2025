@@ -1154,8 +1154,8 @@ img {
    ========================================================================== */
 
 .cta-section {
-  /* Extended to bottom of viewport - footer will float above */
-  padding: 96px 0 280px;
+  /* Extended to page bottom - footer is now a child element */
+  padding: 96px 0 0 0;
   min-height: 50vh;
 
   /* Rich gradient background */
@@ -1169,7 +1169,7 @@ img {
   color: var(--color-white);
   text-align: center;
   position: relative;
-  overflow: visible; /* Allow footer to float above */
+  overflow: hidden; /* Contain content properly */
 }
 
 /* Ambient light overlay */
@@ -1270,8 +1270,8 @@ img {
    ========================================================================== */
 
 .footer {
-  /* Float above CTA section - no separate background */
-  margin-top: -200px;
+  /* Child of CTA section - integrated positioning */
+  margin-top: 80px;
   padding: 0;
   position: relative;
   z-index: 10;
@@ -1290,7 +1290,8 @@ img {
 
   /* Delicate border and shadow */
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 20px;
+  border-bottom: none;
+  border-radius: 20px 20px 0 0;
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
@@ -1302,7 +1303,7 @@ img {
   gap: 24px;
   max-width: 800px;
   margin: 0 auto;
-  padding: 48px 40px;
+  padding: 48px 40px 48px 40px;
 
   /* Position */
   position: relative;
@@ -1324,7 +1325,7 @@ img {
     transparent 50%
   );
 
-  border-radius: 20px;
+  border-radius: 20px 20px 0 0;
   pointer-events: none;
   z-index: -1;
 }
@@ -1462,17 +1463,17 @@ img {
   }
 
   .cta-section {
-    padding: 64px 0 200px;
+    padding: 64px 0 0;
   }
 
   .footer {
-    margin-top: -140px;
+    margin-top: 60px;
     padding: 0;
   }
 
   .footer-content {
-    padding: 40px 32px;
-    border-radius: 18px;
+    padding: 40px 32px 40px 32px;
+    border-radius: 18px 18px 0 0;
     backdrop-filter: blur(12px) saturate(120%);
     -webkit-backdrop-filter: blur(12px) saturate(120%);
   }
@@ -1551,18 +1552,18 @@ img {
   }
 
   .cta-section {
-    padding: 48px 0 180px;
+    padding: 48px 0 0;
   }
 
   .footer {
-    margin-top: -120px;
+    margin-top: 48px;
     padding: 0;
   }
 
   .footer-content {
-    padding: 36px 24px;
+    padding: 36px 24px 36px 24px;
     gap: 20px;
-    border-radius: 16px;
+    border-radius: 16px 16px 0 0;
     max-width: calc(100% - 32px);
   }
 
@@ -2281,7 +2282,11 @@ img {
   }
 }
 
-/* CTA Section snowflakes */
+/* CTA Section snowflakes - behind footer */
+.cta-section .snowflakes {
+  z-index: 1; /* Behind footer glass panel */
+}
+
 .cta-section .snowflakes .snowflake {
   color: rgba(255, 255, 255, 0.6);
 }
