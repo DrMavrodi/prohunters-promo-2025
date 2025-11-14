@@ -1154,7 +1154,9 @@ img {
    ========================================================================== */
 
 .cta-section {
-  padding: 96px 0;
+  /* Extended to bottom of viewport - footer will float above */
+  padding: 96px 0 280px;
+  min-height: 50vh;
 
   /* Rich gradient background */
   background: linear-gradient(
@@ -1167,7 +1169,7 @@ img {
   color: var(--color-white);
   text-align: center;
   position: relative;
-  overflow: hidden;
+  overflow: visible; /* Allow footer to float above */
 }
 
 /* Ambient light overlay */
@@ -1264,80 +1266,102 @@ img {
 }
 
 /* ==========================================================================
-   Footer - Apple Glassmorphism
+   Footer - Gentle Apple-Style Glassmorphism Float Panel
    ========================================================================== */
 
 .footer {
-  padding: 64px 0 48px;
-
-  /* Dark background with subtle glass effect */
-  background: linear-gradient(
-    180deg,
-    rgba(26, 35, 50, 1) 0%,
-    rgba(26, 35, 50, 0.98) 100%
-  );
-
+  /* Float above CTA section - no separate background */
+  margin-top: -200px;
+  padding: 0;
   position: relative;
-  overflow: hidden;
+  z-index: 10;
+  overflow: visible;
+
+  /* Remove any background - it's transparent/glass only */
+  background: none;
 }
 
-/* Subtle top border with glass effect */
-.footer::before {
+/* Glass panel container */
+.footer-content {
+  /* Gentle glass panel with soft blur */
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+
+  /* Delicate border and shadow */
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  /* Layout - airy spacing */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 40px;
+
+  /* Position */
+  position: relative;
+  z-index: 1;
+}
+
+/* Subtle refraction glow overlay */
+.footer-content::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 1px;
+  height: 100%;
 
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(201, 169, 97, 0.3) 50%,
-    transparent 100%
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(255, 255, 255, 0.06) 0%,
+    transparent 50%
   );
+
+  border-radius: 20px;
+  pointer-events: none;
+  z-index: -1;
 }
 
-.footer-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 32px;
-
-  /* Simple clean layout - no glass effect */
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 40px 32px;
-}
-
+/* Logo with hover effect */
 .footer-logo img {
-  max-width: 150px;
+  max-width: 140px;
   opacity: 0.9;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
-  transition: opacity 200ms ease;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .footer-logo img:hover {
   opacity: 1;
+  transform: scale(1.05);
+  filter: drop-shadow(0 4px 16px rgba(201, 169, 97, 0.3));
 }
 
 .footer-info {
   text-align: center;
 }
 
+/* Clean, minimal typography */
 .footer-info p {
-  margin: 8px 0;
+  margin: 6px 0;
   font-family: 'Open Sans', sans-serif;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.75);
   line-height: 1.6;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .footer-info p:first-child {
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
 /* ==========================================================================
@@ -1438,11 +1462,23 @@ img {
   }
 
   .cta-section {
-    padding: 64px 0;
+    padding: 64px 0 200px;
   }
 
   .footer {
-    padding: 48px 0 32px;
+    margin-top: -140px;
+    padding: 0;
+  }
+
+  .footer-content {
+    padding: 40px 32px;
+    border-radius: 18px;
+    backdrop-filter: blur(12px) saturate(120%);
+    -webkit-backdrop-filter: blur(12px) saturate(120%);
+  }
+
+  .footer-logo img {
+    max-width: 120px;
   }
 
   .cta-button {
@@ -1515,11 +1551,31 @@ img {
   }
 
   .cta-section {
-    padding: 48px 0;
+    padding: 48px 0 180px;
   }
 
   .footer {
-    padding: 40px 0 24px;
+    margin-top: -120px;
+    padding: 0;
+  }
+
+  .footer-content {
+    padding: 36px 24px;
+    gap: 20px;
+    border-radius: 16px;
+    max-width: calc(100% - 32px);
+  }
+
+  .footer-logo img {
+    max-width: 100px;
+  }
+
+  .footer-info p {
+    font-size: 0.8125rem;
+  }
+
+  .footer-info p:first-child {
+    font-size: 0.875rem;
   }
 
   .cta-content h2 {
