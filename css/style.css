@@ -4,6 +4,10 @@
    Base styles: opinionated defaults
    ========================================================================== */
 
+/* ==========================================================================
+   CSS Variables (Phase 1: Expanded Variables)
+   ========================================================================== */
+
 :root {
   /* Color Palette - ProHunters Brand Colors */
   --color-navy: #1a2332;
@@ -18,9 +22,46 @@
   --color-text: #333333;
   --color-text-light: #666666;
 
-  /* Legacy color mappings for backward compatibility */
-  --color-burgundy: var(--color-red);
-  --color-burgundy-light: var(--color-red-light);
+  /* Common RGBA Colors */
+  --text-on-glass: rgba(26, 35, 50, 0.75);
+  --white-90: rgba(255, 255, 255, 0.9);
+  --white-95: rgba(255, 255, 255, 0.95);
+  --gold-subtle: rgba(201, 169, 97, 0.08);
+
+  /* Glass Morphism Effects */
+  --glass-blur-strong: blur(20px);
+  --glass-blur-medium: blur(14px);
+  --glass-blur-light: blur(12px);
+  --glass-saturation: saturate(120%);
+  --glass-brightness: brightness(1.05);
+  --glass-bg-light: rgba(255, 255, 255, 0.4);
+  --glass-bg-medium: rgba(255, 255, 255, 0.35);
+  --glass-bg-subtle: rgba(255, 255, 255, 0.05);
+  --glass-border-light: rgba(255, 255, 255, 0.4);
+  --glass-border-medium: rgba(255, 255, 255, 0.35);
+  --glass-border-subtle: rgba(255, 255, 255, 0.12);
+
+  /* Border Radius */
+  --radius-xl: 50px;
+  --radius-lg: 20px;
+  --radius-md: 16px;
+  --radius-sm: 12px;
+  --radius-xs: 8px;
+  --radius-full: 50%;
+
+  /* Z-Index Layers */
+  --z-background: -1;
+  --z-base: 0;
+  --z-overlay: 1;
+  --z-content: 2;
+  --z-header: 10;
+  --z-modal: 9999;
+
+  /* Animation Durations & Easing */
+  --duration-fast: 0.2s;
+  --duration-normal: 0.3s;
+  --duration-slow: 0.4s;
+  --easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Spacing */
   --spacing-xs: 0.5rem;
@@ -40,9 +81,14 @@
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
   --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 
   --transition: all 0.3s ease;
 }
+
+/* ==========================================================================
+   Reset & Base Styles
+   ========================================================================== */
 
 * {
   box-sizing: border-box;
@@ -58,7 +104,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: var(--font-body);
+  font-family: var(--font-body, 'Montserrat', sans-serif);
   background-color: var(--color-white);
   overflow-x: hidden;
 }
@@ -75,9 +121,18 @@ body {
   text-shadow: none;
 }
 
-/* Typography */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
+  font-family: var(--font-heading, 'Montserrat', sans-serif);
   font-weight: 700;
   line-height: 1.2;
   margin-top: 0;
@@ -120,20 +175,16 @@ a:hover {
   color: var(--color-gold-dark);
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
+/* ==========================================================================
+   Layout Primitives
+   ========================================================================== */
 
-/* Container */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--spacing-md);
 }
 
-/* Section Titles */
 .section-title {
   text-align: center;
   margin-bottom: var(--spacing-lg);
@@ -149,26 +200,52 @@ img {
   transform: translateX(-50%);
   width: 80px;
   height: 3px;
-  background: linear-gradient(90deg, var(--color-gold), var(--color-burgundy));
+  background: linear-gradient(90deg, var(--color-gold), var(--color-red));
   border-radius: 2px;
 }
 
-.subsection-title {
-  font-size: 1.5rem;
-  color: var(--color-navy-light);
-  margin: var(--spacing-lg) 0 var(--spacing-md) 0;
-  text-align: center;
+/* ==========================================================================
+   Utility Classes (Phase 3: New Utilities)
+   ========================================================================== */
+
+.glass-strong {
+  backdrop-filter: var(--glass-blur-strong) var(--glass-saturation) var(--glass-brightness);
+  -webkit-backdrop-filter: var(--glass-blur-strong) var(--glass-saturation) var(--glass-brightness);
 }
 
-/* Buttons */
+.glass-medium {
+  backdrop-filter: var(--glass-blur-medium) var(--glass-saturation);
+  -webkit-backdrop-filter: var(--glass-blur-medium) var(--glass-saturation);
+}
+
+.glass-surface {
+  background: var(--glass-bg-light);
+  border: 1px solid var(--glass-border-light);
+  box-shadow: var(--shadow-glass);
+}
+
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: auto;
+}
+
+.content-layer {
+  position: relative;
+  z-index: var(--z-content);
+}
+
+/* ==========================================================================
+   Component: Buttons
+   ========================================================================== */
+
 .cta-button {
   display: inline-block;
   padding: 1rem 2.5rem;
   font-size: 1.1rem;
   font-weight: 600;
-  font-family: var(--font-heading);
+  font-family: var(--font-heading, 'Montserrat', sans-serif);
   text-align: center;
-  border-radius: 50px;
+  border-radius: var(--radius-xl);
   cursor: pointer;
   transition: var(--transition);
   text-decoration: none;
@@ -200,7 +277,147 @@ img {
   box-shadow: var(--shadow-lg);
 }
 
-/* Icons */
+/* Apple 2025 Style Glass Button */
+.glass-button {
+  background: rgba(255, 255, 255, 0.18) !important;
+  backdrop-filter: var(--glass-blur-medium) var(--glass-saturation);
+  -webkit-backdrop-filter: var(--glass-blur-medium) var(--glass-saturation);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  color: var(--color-white) !important;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  padding: 1.15rem 3rem;
+  font-size: 1.15rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 2rem;
+  transition: all var(--duration-slow) ease;
+  position: relative;
+  z-index: var(--z-content);
+}
+
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.22) !important;
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+}
+
+.glass-button:active {
+  transform: translateY(0px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Glass Pills */
+.glass-pills {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: var(--z-overlay);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-xl);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--white-95) !important;
+  text-decoration: none;
+  transition: transform var(--duration-normal) var(--easing-smooth),
+              background var(--duration-normal) var(--easing-smooth),
+              border var(--duration-normal) var(--easing-smooth),
+              box-shadow var(--duration-normal) var(--easing-smooth),
+              backdrop-filter var(--duration-normal) var(--easing-smooth),
+              opacity var(--duration-normal) var(--easing-smooth);
+  cursor: pointer;
+}
+
+.glass-pill span {
+  color: var(--white-95) !important;
+}
+
+.glass-pill .icon,
+.glass-pill svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  opacity: 0.9;
+  color: var(--white-95) !important;
+  stroke: currentColor !important;
+  fill: none !important;
+}
+
+.glass-pill:hover,
+.glass-pill:hover span,
+.glass-pill:hover .icon,
+.glass-pill:hover svg {
+  color: var(--white-95) !important;
+}
+
+.glass-pill:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.glass-pill:active,
+.glass-pill:active span,
+.glass-pill:active .icon,
+.glass-pill:active svg {
+  color: var(--white-95) !important;
+}
+
+.glass-pill:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.glass-pill:focus,
+.glass-pill:focus span,
+.glass-pill:focus .icon,
+.glass-pill:focus svg {
+  color: var(--white-95) !important;
+}
+
+.glass-pill:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 3px;
+}
+
+.glass-pill:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.glass-pill:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 3px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.glass-pill:focus-visible,
+.glass-pill:focus-visible span,
+.glass-pill:focus-visible .icon,
+.glass-pill:focus-visible svg {
+  color: var(--white-95) !important;
+}
+
+/* ==========================================================================
+   Component: Icons
+   ========================================================================== */
+
 .icon {
   width: 24px;
   height: 24px;
@@ -210,7 +427,7 @@ img {
 }
 
 /* ==========================================================================
-   Hero Section
+   Component: Hero Section
    ========================================================================== */
 
 .hero {
@@ -230,28 +447,23 @@ img {
   left: 0;
   width: 100%;
   height: 100%;
-  /* Smooth 6-color animated gradient: Grey → Blue → Light Blue → Green → Purple → Red → Grey */
   background: linear-gradient(
     135deg,
-    #2a2e3a 0%,      /* Dark grey */
-    #1a2d4a 16.66%,  /* Deep navy blue */
-    #2d3e56 33.33%,  /* Slate blue (dark but lighter than navy) */
-    #1a3d2e 50%,     /* Deep forest green */
-    #2d1a3d 66.66%,  /* Deep purple/plum */
-    #3d1a1f 83.33%,  /* Deep burgundy/maroon (dark red) */
-    #2a2e3a 100%     /* Back to dark grey (seamless loop) */
+    #2a2e3a 0%,
+    #1a2d4a 16.66%,
+    #2d3e56 33.33%,
+    #1a3d2e 50%,
+    #2d1a3d 66.66%,
+    #3d1a1f 83.33%,
+    #2a2e3a 100%
   );
-  /* Large background-size for smooth, gradual transitions */
   background-size: 700% 700%;
-  /* Smooth continuous animation with linear easing */
   animation: smooth-gradient 30s linear infinite;
-  /* GPU acceleration hints for performance */
   will-change: background-position;
   transform: translateZ(0);
-  z-index: -1;
+  z-index: var(--z-background);
 }
 
-/* Layered Gradient Enhancement - Cinematic Depth */
 .hero-background::before {
   content: '';
   position: absolute;
@@ -275,7 +487,6 @@ img {
   transform: translateZ(0);
 }
 
-/* Secondary ambient layer for aurora effect */
 .hero-background::after {
   content: '';
   position: absolute;
@@ -300,68 +511,6 @@ img {
   transform: translateZ(0);
 }
 
-/* Smooth gradient animation - constant speed, no pauses */
-@keyframes smooth-gradient {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-/* Wave-like gradient animation for layered depth */
-@keyframes wave-gradient {
-  0% {
-    background-position: 0% 30%;
-  }
-  25% {
-    background-position: 40% 60%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  75% {
-    background-position: 60% 40%;
-  }
-  100% {
-    background-position: 0% 30%;
-  }
-}
-
-/* Ambient aurora pulse animation */
-@keyframes ambient-pulse {
-  0% {
-    opacity: 0.4;
-  }
-  50% {
-    opacity: 0.6;
-  }
-  100% {
-    opacity: 0.4;
-  }
-}
-
-/* Mobile optimization - slightly slower and smaller gradient */
-@media only screen and (max-width: 768px) {
-  .hero-background {
-    background-size: 600% 600%;
-    animation-duration: 35s;
-  }
-}
-
-/* Accessibility: Respect reduced motion preference */
-@media (prefers-reduced-motion: reduce) {
-  .hero-background {
-    animation: none !important;
-    background-position: 0% 50%;
-  }
-
-  .hero-title-main {
-    filter: none;
-  }
-}
-
 .hero-content {
   text-align: center;
   max-width: 900px;
@@ -369,23 +518,11 @@ img {
   animation: fadeInUp 1s ease-out;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 .hero-logo {
   max-width: 200px;
   margin: 0 auto var(--spacing-md);
 }
 
-/* Updated Hero Title with Stacked Typography Hierarchy */
 .hero-title {
   display: flex;
   flex-direction: column;
@@ -394,7 +531,6 @@ img {
   margin-bottom: var(--spacing-md);
 }
 
-/* Part 1: "Под звон Jingle-Bells:" - Atmospheric prelude */
 .hero-title-prelude {
   font-family: var(--font-accent);
   font-weight: 400;
@@ -402,12 +538,10 @@ img {
   letter-spacing: 0.5px;
   color: var(--color-white);
   opacity: 0.75;
-  /* Apple-style subtle shadow for readability - barely perceptible */
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   line-height: 1.3;
 }
 
-/* Part 2: "Итоги ProHunters 2025" - Main message */
 .hero-title-main {
   font-family: var(--font-accent);
   font-weight: 700;
@@ -415,10 +549,8 @@ img {
   letter-spacing: -0.5px;
   color: var(--color-white);
   opacity: 1.0;
-  /* Apple-style refined shadow - 5-8% opacity, extremely subtle */
   text-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
   line-height: 1.1;
-  /* Soft white glow for depth on dynamic backgrounds */
   filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.12));
 }
 
@@ -436,32 +568,9 @@ img {
 .hero-details {
   display: flex;
   justify-content: center;
-  gap: var(--spacing-lg);
+  gap: var(--spacing-sm);
   margin-bottom: var(--spacing-lg);
   flex-wrap: wrap;
-}
-
-.detail-item {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--color-gold);
-}
-
-.detail-item .icon {
-  width: 28px;
-  height: 28px;
-}
-
-.hero-note {
-  margin-top: var(--spacing-md);
-  font-size: 0.95rem;
-  color: var(--color-gold);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
 .scroll-indicator {
@@ -489,13 +598,8 @@ img {
   height: 24px;
 }
 
-@keyframes bounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(10px); }
-}
-
 /* ==========================================================================
-   Benefits Section - Apple Glassmorphism
+   Component: Benefits Section
    ========================================================================== */
 
 .benefits {
@@ -510,6 +614,52 @@ img {
   overflow: hidden;
 }
 
+.benefits::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><filter id="n"><feTurbulence baseFrequency="0.9" numOctaves="3" type="fractalNoise"/></filter><rect width="200" height="200" filter="url(%23n)" opacity="0.05"/></svg>');
+  opacity: 1;
+  pointer-events: none;
+  z-index: var(--z-base);
+  animation: noise-movement 50s ease-in-out infinite alternate;
+  mix-blend-mode: overlay;
+  transform: translateZ(0);
+  will-change: auto;
+}
+
+.benefits::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(248, 249, 250, 0.1) 0%,
+    rgba(255, 255, 255, 0.08) 25%,
+    rgba(201, 169, 97, 0.1) 50%,
+    rgba(255, 255, 255, 0.08) 75%,
+    rgba(248, 249, 250, 0.1) 100%
+  );
+  background-size: 400% 400%;
+  animation: mesh-morph 50s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: var(--z-base);
+  mix-blend-mode: soft-light;
+  transform: translateZ(0);
+  will-change: auto;
+}
+
+.benefits > .container {
+  position: relative;
+  z-index: var(--z-overlay);
+}
+
 .benefits-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -518,23 +668,14 @@ img {
 }
 
 .benefit-card {
-  /* Glass surface */
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(20px) saturate(120%) brightness(1.05);
-  -webkit-backdrop-filter: blur(20px) saturate(120%) brightness(1.05);
-
-  /* Border & shadow */
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-
-  /* Layout */
+  background: var(--glass-bg-light);
+  backdrop-filter: var(--glass-blur-strong) var(--glass-saturation) var(--glass-brightness);
+  -webkit-backdrop-filter: var(--glass-blur-strong) var(--glass-saturation) var(--glass-brightness);
+  border: 1px solid var(--glass-border-light);
+  box-shadow: var(--shadow-glass);
   padding: 32px 28px;
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   text-align: center;
-
-  /* Performance optimization */
   transform: translateZ(0);
   contain: layout paint;
 }
@@ -543,26 +684,19 @@ img {
   width: 80px;
   height: 80px;
   margin: 0 auto 24px;
-
-  /* Glass circle with gradient overlay */
   background: linear-gradient(
     135deg,
     rgba(201, 169, 97, 0.25),
     rgba(165, 23, 29, 0.2)
   );
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-
+  backdrop-filter: var(--glass-blur-light);
+  -webkit-backdrop-filter: var(--glass-blur-light);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-
+  border-radius: var(--radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
-
-  box-shadow:
-    0 4px 20px rgba(201, 169, 97, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 20px rgba(201, 169, 97, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .benefit-icon svg {
@@ -573,7 +707,7 @@ img {
 }
 
 .benefit-card h3 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-heading, 'Montserrat', sans-serif);
   font-size: clamp(1.25rem, 2.5vw, 1.5rem);
   font-weight: 600;
   color: var(--color-navy);
@@ -583,21 +717,77 @@ img {
 }
 
 .benefit-card p {
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--font-body, 'Montserrat', sans-serif);
   font-size: clamp(0.95rem, 1.8vw, 1rem);
-  color: rgba(26, 35, 50, 0.75);
+  color: var(--text-on-glass);
   line-height: 1.7;
   text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
 }
 
 /* ==========================================================================
-   Program Section (Timeline) - Apple Glassmorphism
+   Component: Program Section (Timeline)
    ========================================================================== */
 
 .program {
   padding: 80px 0;
   background: rgba(255, 255, 255, 0.95);
   position: relative;
+  overflow: hidden;
+}
+
+.program::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(201, 169, 97, 0.08) 0%,
+    rgba(26, 35, 50, 0.05) 40%,
+    transparent 70%
+  );
+  animation: radial-pulse 35s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: var(--z-base);
+  mix-blend-mode: overlay;
+  transform: translateZ(0);
+  will-change: auto;
+}
+
+.program::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(201, 169, 97, 0.5) 0%, transparent 4px),
+    radial-gradient(circle at 85% 30%, rgba(26, 35, 50, 0.4) 0%, transparent 5px),
+    radial-gradient(circle at 40% 50%, rgba(201, 169, 97, 0.45) 0%, transparent 4px),
+    radial-gradient(circle at 70% 70%, rgba(26, 35, 50, 0.5) 0%, transparent 6px),
+    radial-gradient(circle at 25% 80%, rgba(201, 169, 97, 0.4) 0%, transparent 5px),
+    radial-gradient(circle at 60% 15%, rgba(26, 35, 50, 0.45) 0%, transparent 4px),
+    radial-gradient(circle at 90% 85%, rgba(201, 169, 97, 0.5) 0%, transparent 5px),
+    radial-gradient(circle at 10% 60%, rgba(26, 35, 50, 0.4) 0%, transparent 6px),
+    radial-gradient(circle at 50% 35%, rgba(201, 169, 97, 0.45) 0%, transparent 4px),
+    radial-gradient(circle at 80% 55%, rgba(26, 35, 50, 0.4) 0%, transparent 5px),
+    radial-gradient(circle at 35% 90%, rgba(201, 169, 97, 0.5) 0%, transparent 6px),
+    radial-gradient(circle at 65% 10%, rgba(26, 35, 50, 0.45) 0%, transparent 4px);
+  background-size: 100% 100%;
+  animation: particle-float 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: var(--z-base);
+  opacity: 0.6;
+  transform: translateZ(0);
+  will-change: auto;
+}
+
+.program > .container {
+  position: relative;
+  z-index: var(--z-overlay);
 }
 
 .timeline {
@@ -606,7 +796,6 @@ img {
   position: relative;
 }
 
-/* Glass timeline line */
 .timeline::before {
   content: '';
   position: absolute;
@@ -629,7 +818,6 @@ img {
   margin-bottom: 40px;
 }
 
-/* Glass dot indicator */
 .timeline-item::before {
   content: '';
   position: absolute;
@@ -637,7 +825,6 @@ img {
   top: 8px;
   width: 18px;
   height: 18px;
-
   background: radial-gradient(
     circle,
     rgba(201, 169, 97, 0.9),
@@ -645,119 +832,70 @@ img {
   );
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-
   border: 3px solid rgba(255, 255, 255, 0.8);
-  border-radius: 50%;
-
-  box-shadow:
-    0 0 0 4px rgba(201, 169, 97, 0.15),
-    0 4px 12px rgba(201, 169, 97, 0.3);
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 0 4px rgba(201, 169, 97, 0.15), 0 4px 12px rgba(201, 169, 97, 0.3);
 }
 
-/* Highlight items (presentations) */
 .timeline-item.highlight::before {
   background: radial-gradient(
     circle,
     rgba(165, 23, 29, 0.9),
     rgba(165, 23, 29, 0.6)
   );
-  box-shadow:
-    0 0 0 4px rgba(165, 23, 29, 0.15),
-    0 4px 12px rgba(165, 23, 29, 0.3);
+  box-shadow: 0 0 0 4px rgba(165, 23, 29, 0.15), 0 4px 12px rgba(165, 23, 29, 0.3);
 }
 
-/* Award ceremony special styling */
 .timeline-item.award::before {
   background: radial-gradient(
     circle,
     rgba(255, 215, 0, 0.95),
     rgba(201, 169, 97, 0.7)
   );
-  box-shadow:
-    0 0 0 4px rgba(201, 169, 97, 0.2),
-    0 4px 16px rgba(201, 169, 97, 0.4),
-    0 0 20px rgba(255, 215, 0, 0.3);
+  box-shadow: 0 0 0 4px rgba(201, 169, 97, 0.2), 0 4px 16px rgba(201, 169, 97, 0.4), 0 0 20px rgba(255, 215, 0, 0.3);
   animation: awardGlow 3s ease-in-out infinite;
 }
 
-@keyframes awardGlow {
-  0%, 100% {
-    box-shadow:
-      0 0 0 4px rgba(201, 169, 97, 0.2),
-      0 4px 16px rgba(201, 169, 97, 0.4),
-      0 0 20px rgba(255, 215, 0, 0.3);
-  }
-  50% {
-    box-shadow:
-      0 0 0 6px rgba(201, 169, 97, 0.25),
-      0 6px 20px rgba(201, 169, 97, 0.5),
-      0 0 30px rgba(255, 215, 0, 0.4);
-  }
-}
-
-/* Time Badge (Glass pill) */
 .timeline-time {
   display: inline-block;
-
-  /* Glass surface */
   background: rgba(26, 35, 50, 0.08);
   backdrop-filter: blur(16px) saturate(110%);
   -webkit-backdrop-filter: blur(16px) saturate(110%);
-
-  /* Border & shadow */
   border: 1px solid rgba(26, 35, 50, 0.12);
-  box-shadow:
-    0 4px 16px rgba(0, 0, 0, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
-
-  /* Layout */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.4);
   padding: 8px 20px;
-  border-radius: 50px;
-
-  /* Typography */
-  font-family: 'Montserrat', sans-serif;
+  border-radius: var(--radius-xl);
+  font-family: var(--font-heading, 'Montserrat', sans-serif);
   font-weight: 600;
   font-size: 0.95rem;
   color: var(--color-navy);
   letter-spacing: 0.02em;
-
   margin-bottom: 16px;
 }
 
-/* Timeline Content (Glass card) */
 .timeline-content {
-  /* Glass surface */
-  background: rgba(255, 255, 255, 0.35);
-  backdrop-filter: blur(20px) saturate(120%) brightness(1.05);
-  -webkit-backdrop-filter: blur(20px) saturate(120%) brightness(1.05);
-
-  /* Border & shadow */
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-
-  /* Layout */
+  background: var(--glass-bg-medium);
+  backdrop-filter: var(--glass-blur-strong) var(--glass-saturation) var(--glass-brightness);
+  -webkit-backdrop-filter: var(--glass-blur-strong) var(--glass-saturation) var(--glass-brightness);
+  border: 1px solid var(--glass-border-medium);
+  box-shadow: var(--shadow-glass);
   padding: 28px 32px;
-  border-radius: 20px;
-
-  /* Performance optimization */
+  border-radius: var(--radius-lg);
   transform: translateZ(0);
   contain: layout paint;
 }
 
-/* Award ceremony special glass */
 .timeline-item.award .timeline-content {
-  background: rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(201, 169, 97, 0.3);
-  border-left: 3px solid rgba(201, 169, 97, 0.6);
-  box-shadow:
-    0 8px 32px rgba(201, 169, 97, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  position: relative;
+  background: linear-gradient(135deg, rgba(201, 169, 97, 0.08) 0%, rgba(26, 35, 50, 0.03) 100%);
+  border: 2px solid rgba(201, 169, 97, 0.3);
+  border-left: 4px solid var(--color-gold);
+  box-shadow: 0 8px 24px rgba(201, 169, 97, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
 .timeline-content h3 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-heading, 'Montserrat', sans-serif);
   font-size: clamp(1.25rem, 2.5vw, 1.5rem);
   font-weight: 600;
   color: var(--color-navy);
@@ -767,18 +905,16 @@ img {
 }
 
 .timeline-content p {
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--font-body, 'Montserrat', sans-serif);
   font-size: clamp(0.95rem, 1.8vw, 1rem);
-  color: rgba(26, 35, 50, 0.75);
+  color: var(--text-on-glass);
   line-height: 1.7;
   margin-bottom: 12px;
   text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
 }
 
-/* Award ceremony gold title */
 .timeline-item.award .timeline-content h3 {
-  color: rgba(168, 139, 74, 1);
-  /*text-shadow: 0 2px 4px rgba(201, 169, 97, 0.3);*/
+  color: var(--color-gold);
 }
 
 .timeline-content ul {
@@ -787,7 +923,7 @@ img {
 }
 
 .timeline-content ul li {
-  color: rgba(26, 35, 50, 0.75);
+  color: var(--text-on-glass);
   margin-bottom: 0.5rem;
   line-height: 1.7;
 }
@@ -806,7 +942,7 @@ img {
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform var(--duration-normal) ease;
   max-width: 100px;
 }
 
@@ -817,12 +953,12 @@ img {
 .speaker-mini-card img {
   width: 70px;
   height: 70px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   object-fit: cover;
   object-position: center;
   border: 3px solid var(--color-gold);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s ease;
+  transition: all var(--duration-normal) ease;
 }
 
 .speaker-mini-card:hover img {
@@ -838,31 +974,12 @@ img {
   line-height: 1.3;
 }
 
-@media (max-width: 768px) {
-  .speakers-preview {
-    gap: 1rem;
-  }
-
-  .speaker-mini-card img {
-    width: 60px;
-    height: 60px;
-    border-width: 2px;
-  }
-
-  .speaker-mini-card span {
-    font-size: 0.75rem;
-  }
-}
-
-/* ============================================
-   MODERATOR ACCENT BLOCK - LIGHTWEIGHT
-   ============================================ */
-
+/* Moderator Accent Block */
 .moderator-accent-block {
   max-width: 600px;
   margin: 32px auto;
   background: var(--color-white);
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   border-bottom: 1px solid var(--color-gold);
   overflow: hidden;
 }
@@ -883,16 +1000,16 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(201, 169, 97, 0.08);
-  color: #A88B4A;
+  background: var(--gold-subtle);
+  color: var(--color-gold-dark);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
   padding: 4px 12px;
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   margin-bottom: 8px;
-  font-family: var(--font-heading);
+  font-family: var(--font-heading, 'Montserrat', sans-serif);
 }
 
 .moderator-badge .badge-icon {
@@ -906,17 +1023,17 @@ img {
   font-weight: 600;
   color: var(--color-navy);
   margin: 0 0 4px 0;
-  font-family: var(--font-heading);
+  font-family: var(--font-heading, 'Montserrat', sans-serif);
   line-height: 1.3;
 }
 
 .moderator-accent-block__title {
   font-size: 15px;
   font-weight: 400;
-  color: #666666;
+  color: var(--color-text-light);
   margin: 0;
   line-height: 1.5;
-  font-family: var(--font-body);
+  font-family: var(--font-body, 'Montserrat', sans-serif);
 }
 
 .moderator-accent-block__photo-wrapper {
@@ -928,85 +1045,77 @@ img {
 .moderator-accent-block__photo {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   object-fit: cover;
   object-position: center;
   border: 2px solid var(--color-gold);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-
-/* Mobile responsive */
-@media (max-width: 768px) {
-  .moderator-accent-block {
-    max-width: 100%;
-    margin: 24px 0;
-  }
-
-  .moderator-accent-block__content {
-    flex-direction: column;
-    text-align: center;
-    padding: 20px 24px;
-    gap: 16px;
-  }
-
-  .moderator-accent-block__text {
-    order: 2;
-  }
-
-  .moderator-accent-block__photo-wrapper {
-    order: 1;
-    width: 60px;
-    height: 60px;
-  }
-
-  .moderator-badge {
-    font-size: 9px;
-    padding: 3px 10px;
-  }
-
-  .moderator-badge .badge-icon {
-    width: 12px;
-    height: 12px;
-  }
-
-  .moderator-accent-block__name {
-    font-size: 20px;
-  }
-
-  .moderator-accent-block__title {
-    font-size: 14px;
-  }
+/* Award Ceremony Highlight */
+.award-ceremony-icon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  color: var(--color-gold);
+  animation: award-glow 4s ease-in-out infinite;
+  will-change: filter;
+  pointer-events: none;
 }
 
-@media (max-width: 480px) {
-  .moderator-accent-block__content {
-    padding: 16px 20px;
-  }
-
-  .moderator-accent-block__photo-wrapper {
-    width: 50px;
-    height: 50px;
-  }
-
-  .moderator-accent-block__name {
-    font-size: 18px;
-  }
-
-  .moderator-accent-block__title {
-    font-size: 13px;
-  }
+/* Award Confetti Container */
+.award-confetti-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: var(--z-overlay);
+  overflow: hidden;
 }
 
-/* Accessibility: Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-  .moderator-accent-block {
-    transition: none;
-  }
+.confetti-particle {
+  position: absolute;
+  top: -10px;
+  left: var(--start-x);
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: confetti-fall 6s ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+.confetti-particle.gold {
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.9) 0%, rgba(201, 169, 97, 0.7) 40%, transparent 90%);
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(201, 169, 97, 0.5), 0 0 30px rgba(201, 169, 97, 0.3);
+  filter: blur(1px);
+}
+
+.confetti-particle.red {
+  width: 7px;
+  height: 7px;
+  background: radial-gradient(circle, rgba(201, 31, 38, 0.85) 0%, rgba(165, 23, 29, 0.6) 40%, transparent 90%);
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 8px rgba(165, 23, 29, 0.7), 0 0 16px rgba(165, 23, 29, 0.4), 0 0 24px rgba(165, 23, 29, 0.2);
+  filter: blur(0.8px);
+}
+
+.confetti-particle.navy {
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, rgba(45, 62, 80, 0.8) 0%, rgba(26, 35, 50, 0.5) 40%, transparent 90%);
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 6px rgba(45, 62, 80, 0.6), 0 0 12px rgba(26, 35, 50, 0.3), 0 0 18px rgba(26, 35, 50, 0.15);
+  filter: blur(0.7px);
 }
 
 /* ==========================================================================
-   Venue Section - Apple Glassmorphism
+   Component: Venue Section
    ========================================================================== */
 
 .venue {
@@ -1019,6 +1128,36 @@ img {
   );
   position: relative;
   overflow: hidden;
+}
+
+.venue::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(248, 249, 250, 0.08) 0%,
+    rgba(201, 169, 97, 0.12) 20%,
+    rgba(255, 255, 255, 0.1) 40%,
+    rgba(165, 23, 29, 0.08) 60%,
+    rgba(248, 249, 250, 0.08) 80%,
+    rgba(201, 169, 97, 0.1) 100%
+  );
+  background-size: 700% 700%;
+  animation: aurora-flow 45s ease-in-out infinite;
+  pointer-events: none;
+  z-index: var(--z-base);
+  mix-blend-mode: overlay;
+  transform: translateZ(0);
+  will-change: auto;
+}
+
+.venue > .container {
+  position: relative;
+  z-index: var(--z-overlay);
 }
 
 .venue-content {
@@ -1035,24 +1174,15 @@ img {
 }
 
 .venue-detail {
-  /* Glass surface */
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(20px) saturate(120%) brightness(1.05);
-  -webkit-backdrop-filter: blur(20px) saturate(120%) brightness(1.05);
-
-  /* Border & shadow */
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-
-  /* Layout */
+  background: var(--glass-bg-light);
+  backdrop-filter: var(--glass-blur-strong) var(--glass-saturation) var(--glass-brightness);
+  -webkit-backdrop-filter: var(--glass-blur-strong) var(--glass-saturation) var(--glass-brightness);
+  border: 1px solid var(--glass-border-light);
+  box-shadow: var(--shadow-glass);
   display: flex;
   gap: 20px;
   padding: 28px 32px;
-  border-radius: 20px;
-
-  /* Performance optimization */
+  border-radius: var(--radius-lg);
   transform: translateZ(0);
   contain: layout paint;
 }
@@ -1061,25 +1191,18 @@ img {
   width: 48px;
   height: 48px;
   flex-shrink: 0;
-
-  /* Glass circle backing */
   padding: 12px;
   background: rgba(201, 169, 97, 0.15);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-
   border: 1px solid rgba(201, 169, 97, 0.25);
-  border-radius: 50%;
-
+  border-radius: var(--radius-full);
   color: var(--color-gold);
-
-  box-shadow:
-    0 4px 16px rgba(201, 169, 97, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 16px rgba(201, 169, 97, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .venue-detail h4 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-heading, 'Montserrat', sans-serif);
   font-size: clamp(1.1rem, 2vw, 1.25rem);
   font-weight: 600;
   color: var(--color-navy);
@@ -1088,9 +1211,9 @@ img {
 }
 
 .venue-detail p {
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--font-body, 'Montserrat', sans-serif);
   font-size: clamp(0.95rem, 1.8vw, 1rem);
-  color: rgba(26, 35, 50, 0.75);
+  color: var(--text-on-glass);
   line-height: 1.65;
   margin-bottom: 8px;
   text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
@@ -1104,19 +1227,16 @@ img {
 .map-link {
   display: inline-block;
   margin-top: 8px;
-
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-heading, 'Montserrat', sans-serif);
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--color-gold);
   text-decoration: none;
-
   padding: 8px 16px;
-  background: rgba(201, 169, 97, 0.08);
+  background: var(--gold-subtle);
   border: 1px solid rgba(201, 169, 97, 0.2);
-  border-radius: 50px;
-
-  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: var(--radius-xl);
+  transition: all 200ms var(--easing-smooth);
 }
 
 .map-link:hover {
@@ -1126,17 +1246,12 @@ img {
 }
 
 .venue-map {
-  /* Glass frame around map */
   padding: 8px;
-  background: rgba(255, 255, 255, 0.35);
-  backdrop-filter: blur(20px) saturate(120%);
-  -webkit-backdrop-filter: blur(20px) saturate(120%);
-
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  box-shadow:
-    0 12px 48px rgba(0, 0, 0, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-
+  background: var(--glass-bg-medium);
+  backdrop-filter: var(--glass-blur-strong) saturate(120%);
+  -webkit-backdrop-filter: var(--glass-blur-strong) saturate(120%);
+  border: 1px solid var(--glass-border-medium);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   border-radius: 24px;
   height: 450px;
   overflow: hidden;
@@ -1146,33 +1261,28 @@ img {
   width: 100%;
   height: 100%;
   border: none;
-  border-radius: 16px;
+  border-radius: var(--radius-md);
 }
 
 /* ==========================================================================
-   CTA Section - Apple Glassmorphism on Dark Gradient
+   Component: CTA Section
    ========================================================================== */
 
 .cta-section {
-  /* Extended to page bottom - footer is now a child element */
   padding: 96px 0 0 0;
   min-height: 50vh;
-
-  /* Rich gradient background */
   background: linear-gradient(
     135deg,
-    #1a2332 0%,
+    var(--color-navy) 0%,
     #2d1a3d 50%,
-    #A5171D 100%
+    var(--color-red) 100%
   );
-
   color: var(--color-white);
   text-align: center;
   position: relative;
-  overflow: hidden; /* Contain content properly */
+  overflow: hidden;
 }
 
-/* Ambient light overlay */
 .cta-section::before {
   content: '';
   position: absolute;
@@ -1180,7 +1290,6 @@ img {
   left: 0;
   width: 100%;
   height: 100%;
-
   background-image:
     radial-gradient(
       circle at 20% 30%,
@@ -1191,57 +1300,91 @@ img {
       circle at 80% 70%,
       rgba(255, 255, 255, 0.06) 0%,
       transparent 50%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(201, 169, 97, 0.08) 0%,
+      transparent 60%
     );
-
+  animation: shimmer-pulse 8s ease-in-out infinite;
   pointer-events: none;
-  z-index: 0;
+  z-index: var(--z-base);
+  transform: translateZ(0);
+  will-change: auto;
+}
+
+.cta-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(circle at 20% 25%, rgba(201, 169, 97, 0.6) 0%, transparent 10px),
+    radial-gradient(circle at 75% 35%, rgba(201, 169, 97, 0.5) 0%, transparent 12px),
+    radial-gradient(circle at 40% 60%, rgba(201, 169, 97, 0.55) 0%, transparent 8px),
+    radial-gradient(circle at 85% 70%, rgba(201, 169, 97, 0.5) 0%, transparent 10px),
+    radial-gradient(circle at 15% 80%, rgba(201, 169, 97, 0.6) 0%, transparent 12px),
+    radial-gradient(circle at 60% 15%, rgba(201, 169, 97, 0.4) 0%, transparent 9px),
+    radial-gradient(circle at 90% 50%, rgba(201, 169, 97, 0.55) 0%, transparent 11px),
+    radial-gradient(circle at 30% 45%, rgba(201, 169, 97, 0.5) 0%, transparent 10px),
+    radial-gradient(circle at 70% 85%, rgba(201, 169, 97, 0.6) 0%, transparent 12px),
+    radial-gradient(circle at 10% 40%, rgba(201, 169, 97, 0.45) 0%, transparent 8px);
+  background-size: 100% 100%;
+  filter: blur(4px);
+  animation: powder-drift 25s ease-in-out infinite;
+  pointer-events: none;
+  z-index: var(--z-base);
+  opacity: 0.7;
+  mix-blend-mode: screen;
+  transform: translateZ(0);
+  will-change: auto;
+}
+
+.cta-section .snowflakes {
+  z-index: var(--z-overlay);
+}
+
+.cta-section .snowflakes .snowflake {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .cta-content {
   position: relative;
-  z-index: 2;
+  z-index: var(--z-content);
   max-width: 800px;
   margin: 0 auto;
 }
 
 .cta-content h2 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-heading, 'Montserrat', sans-serif);
   font-size: clamp(1.75rem, 4vw, 2.5rem);
   font-weight: 700;
   color: var(--color-white);
   margin-bottom: 24px;
   line-height: 1.2;
-
-  /* Subtle text shadow for readability */
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .cta-content p {
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--font-body, 'Montserrat', sans-serif);
   font-size: clamp(1.05rem, 2vw, 1.2rem);
   line-height: 1.7;
   margin-bottom: 40px;
-  color: rgba(255, 255, 255, 0.9);
-
-  /* Subtle text shadow for readability */
+  color: var(--white-90);
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Note below CTA with glass pill styling */
 .cta-note {
   margin-top: 32px;
-
-  /* Subtle glass pill container */
   display: inline-block;
   padding: 16px 28px;
-
   background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(12px) saturate(110%);
-  -webkit-backdrop-filter: blur(12px) saturate(110%);
-
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 50px;
-
+  backdrop-filter: var(--glass-blur-light) saturate(110%);
+  -webkit-backdrop-filter: var(--glass-blur-light) saturate(110%);
+  border: 1px solid var(--glass-border-subtle);
+  border-radius: var(--radius-xl);
   font-size: 0.95rem;
   color: rgba(255, 255, 255, 0.75);
   line-height: 1.6;
@@ -1261,41 +1404,65 @@ img {
 }
 
 .cta-note a:hover {
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--white-95);
   text-decoration-color: rgba(255, 255, 255, 0.6);
 }
 
 /* ==========================================================================
-   Footer - Gentle Apple-Style Glassmorphism Float Panel
+   Component: Footer
    ========================================================================== */
 
 .footer {
-  /* Child of CTA section - integrated positioning */
   margin-top: 80px;
   padding: 0;
   position: relative;
-  overflow: visible;
-
-  /* Remove any background - it's transparent/glass only */
+  overflow: hidden;
   background: none;
 }
 
-/* Glass panel container */
+.footer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(
+      ellipse at 30% 40%,
+      rgba(201, 169, 97, 0.06) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 70% 60%,
+      rgba(255, 255, 255, 0.04) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 50% 50%,
+      rgba(201, 169, 97, 0.03) 0%,
+      transparent 60%
+    );
+  animation: ambient-glow-pulse 70s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: var(--z-base);
+  mix-blend-mode: screen;
+  opacity: 0.8;
+  transform: translateZ(0);
+  will-change: auto;
+}
+
+.footer > .container {
+  position: relative;
+}
+
 .footer-content {
-  /* Gentle glass panel with soft blur */
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(14px) saturate(120%);
-  -webkit-backdrop-filter: blur(14px) saturate(120%);
-
-  /* Delicate border and shadow */
-  /*border: 1px solid rgba(255, 255, 255, 0.12);*/
+  background: var(--glass-bg-subtle);
+  backdrop-filter: var(--glass-blur-medium) var(--glass-saturation);
+  -webkit-backdrop-filter: var(--glass-blur-medium) var(--glass-saturation);
   border: none;
-  border-radius: 20px 20px 0 0;
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
-
-  /* Layout - airy spacing */
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1303,13 +1470,10 @@ img {
   max-width: 800px;
   margin: 0 auto;
   padding: 48px 40px 48px 40px;
-
-  /* Position */
   position: relative;
-  z-index: 2;
+  z-index: var(--z-content);
 }
 
-/* Subtle refraction glow overlay */
 .footer-content::before {
   content: '';
   position: absolute;
@@ -1317,24 +1481,21 @@ img {
   left: 0;
   width: 100%;
   height: 100%;
-
   background: radial-gradient(
     ellipse at 50% 0%,
     rgba(255, 255, 255, 0.06) 0%,
     transparent 50%
   );
-
-  border-radius: 20px 20px 0 0;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   pointer-events: none;
   z-index: -1;
 }
 
-/* Logo with hover effect */
 .footer-logo img {
   max-width: 140px;
   opacity: 0.9;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 300ms var(--easing-smooth);
 }
 
 .footer-logo img:hover {
@@ -1347,10 +1508,9 @@ img {
   text-align: center;
 }
 
-/* Clean, minimal typography */
 .footer-info p {
   margin: 6px 0;
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--font-body, 'Montserrat', sans-serif);
   font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.75);
   line-height: 1.6;
@@ -1359,242 +1519,14 @@ img {
 
 .footer-info p:first-child {
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--white-90);
   font-size: 0.95rem;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
 /* ==========================================================================
-   Responsive Design
+   Component: Speaker Modal
    ========================================================================== */
-
-@media only screen and (max-width: 1024px) {
-  .venue-content {
-    grid-template-columns: 1fr;
-  }
-
-  .venue-map {
-    height: 350px;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  :root {
-    --spacing-lg: 2rem;
-    --spacing-xl: 3rem;
-    --spacing-xxl: 4rem;
-  }
-
-  .hero {
-    min-height: auto;
-    padding: var(--spacing-xl) 0;
-  }
-
-  .hero-logo {
-    max-width: 150px;
-  }
-
-  /* Mobile responsive for stacked title */
-  .hero-title {
-    gap: 0.35rem;
-  }
-
-  .hero-title-prelude {
-    font-size: clamp(1.1rem, 4vw, 1.4rem);
-    letter-spacing: 0.3px;
-  }
-
-  .hero-title-main {
-    font-size: clamp(1.75rem, 6vw, 2.5rem);
-    letter-spacing: -0.3px;
-  }
-
-  /* Hero subtitle tablet optimization */
-  .hero-subtitle {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    max-width: 600px;
-    margin-bottom: 2rem;
-    text-align: left;
-    padding: 0 1rem;
-  }
-
-  .hero-details {
-    flex-direction: column;
-    gap: var(--spacing-sm);
-  }
-
-  .scroll-indicator {
-    display: none;
-  }
-
-  .benefits-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .benefit-card {
-    backdrop-filter: blur(12px) saturate(120%) brightness(1.05);
-    -webkit-backdrop-filter: blur(12px) saturate(120%) brightness(1.05);
-  }
-
-  .timeline::before {
-    left: 9px;
-    top: 5px;
-  }
-
-  .timeline-item {
-    padding-left: var(--spacing-lg);
-  }
-
-  .timeline-item::before {
-    left: 0px;
-  }
-
-  .venue-map {
-    height: 300px;
-  }
-
-  .map-link {
-    padding: 12px 20px;
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-  }
-
-  .cta-section {
-    padding: 64px 0 0;
-  }
-
-  .footer {
-    margin-top: 60px;
-    padding: 0;
-  }
-
-  .footer-content {
-    padding: 40px 32px 40px 32px;
-    border-radius: 18px 18px 0 0;
-    backdrop-filter: blur(12px) saturate(120%);
-    -webkit-backdrop-filter: blur(12px) saturate(120%);
-  }
-
-  .footer-logo img {
-    max-width: 120px;
-  }
-
-  .cta-button {
-    padding: 0.9rem 2rem;
-    font-size: 1rem;
-    width: 100%;
-    max-width: 350px;
-  }
-
-  .cta-content h2 {
-    font-size: 1.8rem;
-  }
-}
-
-@media only screen and (max-width: 480px) {
-  .container {
-    padding: 0 var(--spacing-sm);
-  }
-
-  /* Hero subtitle mobile optimization */
-  .hero-subtitle {
-    font-size: 1rem;
-    line-height: 1.65;
-    margin-bottom: 1.75rem;
-    text-align: left;
-    padding: 0 0.5rem;
-  }
-
-  .detail-item {
-    font-size: 0.95rem;
-  }
-
-  .hero-logo,
-  .footer-logo img {
-    max-width: 120px;
-  }
-
-  .benefit-icon {
-    width: 60px;
-    height: 60px;
-  }
-
-  .benefit-icon svg {
-    width: 28px;
-    height: 28px;
-  }
-
-  .venue-detail .icon {
-    width: 40px;
-    height: 40px;
-    padding: 10px;
-  }
-
-  .benefit-card {
-    padding: 24px 20px;
-  }
-
-  .venue-detail,
-  .timeline-content {
-    padding: 20px 16px;
-  }
-
-  .venue-map {
-    height: 250px;
-  }
-
-  .timeline-time {
-    font-size: 0.875rem;
-    padding: 0.6rem 1rem;
-  }
-
-  .cta-section {
-    padding: 48px 0 0;
-  }
-
-  .footer {
-    margin-top: 48px;
-    padding: 0;
-  }
-
-  .footer-content {
-    padding: 36px 24px 36px 24px;
-    gap: 20px;
-    border-radius: 16px 16px 0 0;
-    max-width: calc(100% - 32px);
-  }
-
-  .footer-logo img {
-    max-width: 100px;
-  }
-
-  .footer-info p {
-    font-size: 0.8125rem;
-  }
-
-  .footer-info p:first-child {
-    font-size: 0.875rem;
-  }
-
-  .cta-content h2 {
-    font-size: 1.5rem;
-  }
-
-  .cta-content p {
-    font-size: 1rem;
-  }
-
-  .cta-note {
-    padding: 12px 20px;
-    font-size: 0.875rem;
-  }
-}
-
-/* ============================================
-   SPEAKER MODAL
-   ============================================ */
 
 .speaker-modal {
   display: none;
@@ -1603,28 +1535,12 @@ img {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 9999;
+  z-index: var(--z-modal);
 }
 
 .speaker-modal.active {
   display: block;
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  animation: fadeIn var(--duration-normal) ease;
 }
 
 .modal-overlay {
@@ -1644,10 +1560,10 @@ img {
   max-height: 85vh;
   margin: 7.5vh auto;
   background: var(--color-white);
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
   overflow: hidden;
-  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: slideUp var(--duration-slow) var(--easing-smooth);
 }
 
 .modal-close {
@@ -1662,9 +1578,9 @@ img {
   font-size: 2rem;
   font-weight: 300;
   line-height: 1;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--duration-normal) ease;
   z-index: 10;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   display: flex;
@@ -1699,7 +1615,7 @@ img {
   height: 480px;
   object-fit: cover;
   object-position: center top;
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
@@ -1711,7 +1627,7 @@ img {
   font-size: 2.25rem;
   color: var(--color-navy);
   margin-bottom: 0.75rem;
-  font-family: var(--font-heading);
+  font-family: var(--font-heading, 'Montserrat', sans-serif);
   font-weight: 700;
   line-height: 1.2;
 }
@@ -1770,7 +1686,7 @@ img {
   color: var(--color-navy);
   font-size: 1.2rem;
   margin-bottom: 1rem;
-  font-family: var(--font-heading);
+  font-family: var(--font-heading, 'Montserrat', sans-serif);
 }
 
 .modal-topic p {
@@ -1780,7 +1696,6 @@ img {
   font-size: 1.05rem;
 }
 
-/* Scrollbar Styling */
 .modal-body::-webkit-scrollbar {
   width: 10px;
 }
@@ -1799,83 +1714,11 @@ img {
   background: var(--color-gold-dark);
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 1024px) {
-  .modal-content {
-    max-width: 95%;
-    margin: 2.5vh auto;
-    max-height: 95vh;
-  }
-
-  .modal-body {
-    grid-template-columns: 1fr;
-    padding: 2rem;
-    gap: 2rem;
-  }
-
-  .modal-photo {
-    position: relative;
-  }
-
-  .modal-photo img {
-    height: 400px;
-  }
-
-  .modal-name {
-    font-size: 1.875rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .modal-content {
-    border-radius: 16px;
-  }
-
-  .modal-body {
-    padding: 1.5rem;
-    gap: 1.5rem;
-  }
-
-  .modal-close {
-    width: 40px;
-    height: 40px;
-    top: 1rem;
-    right: 1rem;
-  }
-
-  .modal-photo img {
-    height: 350px;
-  }
-
-  .modal-name {
-    font-size: 1.625rem;
-  }
-
-  .modal-position {
-    font-size: 1rem;
-  }
-
-  .modal-bio {
-    font-size: 0.9375rem;
-  }
-}
-
-/* Accessibility: Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-  .speaker-modal.active,
-  .modal-content,
-  .modal-close,
-  .speaker-mini-card {
-    animation: none;
-    transition: none;
-  }
-}
-
 /* ==========================================================================
-   New Year Elements - Subtle & Professional
+   Decorative Elements: Snowflakes, Sparkles, Confetti
    ========================================================================== */
 
-/* Snowflakes Container */
+/* Snowflakes */
 .snowflakes {
   position: absolute;
   top: 0;
@@ -1884,7 +1727,7 @@ img {
   height: 100%;
   overflow: hidden;
   pointer-events: none;
-  z-index: 1;
+  z-index: var(--z-overlay);
 }
 
 .snowflake {
@@ -1894,36 +1737,10 @@ img {
   font-size: 1.2em;
   user-select: none;
   animation: fall linear infinite;
-  /* Enhanced multi-layered glow for atmospheric depth */
-  text-shadow:
-    0 0 3px rgba(255, 255, 255, 0.9),
-    0 0 8px rgba(200, 220, 255, 0.6),
-    0 0 12px rgba(180, 200, 255, 0.4);
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.9), 0 0 8px rgba(200, 220, 255, 0.6), 0 0 12px rgba(180, 200, 255, 0.4);
   will-change: transform, opacity;
 }
 
-@keyframes fall {
-  0% {
-    transform: translateY(0vh) rotate(0deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.7;
-  }
-  90% {
-    opacity: 0.7;
-  }
-  100% {
-    transform: translateY(100vh) rotate(360deg);
-    opacity: 0;
-  }
-}
-
-/* ========================================
-   Diversified Snowflake Groups
-   ======================================== */
-
-/* GROUP 1: Large Snowflakes (1-4) - Slow, visible, slightly blurred */
 .snowflake:nth-child(1) {
   left: 10%;
   animation-duration: 20s;
@@ -1960,7 +1777,6 @@ img {
   filter: blur(1px);
 }
 
-/* GROUP 2: Medium Snowflakes (5-8) - Standard speed and visibility */
 .snowflake:nth-child(5) {
   left: 20%;
   animation-duration: 16s;
@@ -1997,7 +1813,6 @@ img {
   filter: blur(0.6px);
 }
 
-/* GROUP 3: Small Snowflakes (9-12) - Faster, more transparent, sharper */
 .snowflake:nth-child(9) {
   left: 15%;
   animation-duration: 13s;
@@ -2030,7 +1845,7 @@ img {
   opacity: 0.58;
 }
 
-/* Sparkle elements for hero section */
+/* Sparkles */
 .sparkles {
   position: absolute;
   top: 0;
@@ -2038,7 +1853,7 @@ img {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 1;
+  z-index: var(--z-overlay);
 }
 
 .sparkle {
@@ -2046,18 +1861,12 @@ img {
   width: 4px;
   height: 4px;
   background: var(--color-gold);
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   box-shadow: 0 0 10px var(--color-gold), 0 0 20px rgba(201, 169, 97, 0.5);
   animation: twinkle 3s ease-in-out infinite;
   opacity: 0;
 }
 
-@keyframes twinkle {
-  0%, 100% { opacity: 0; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.5); }
-}
-
-/* Sparkle positions */
 .sparkle:nth-child(1) { top: 20%; left: 15%; animation-delay: 0s; }
 .sparkle:nth-child(2) { top: 30%; left: 85%; animation-delay: 1s; }
 .sparkle:nth-child(3) { top: 60%; left: 25%; animation-delay: 2s; }
@@ -2067,46 +1876,55 @@ img {
 .sparkle:nth-child(7) { top: 80%; left: 35%; animation-delay: 1.2s; }
 .sparkle:nth-child(8) { top: 15%; left: 65%; animation-delay: 0.8s; }
 
-/* ============================================
-   AWARD CEREMONY HIGHLIGHT
-   ============================================ */
+/* ==========================================================================
+   Animations & Keyframes (Phase 9: Consolidated)
+   ========================================================================== */
 
-/* Enhanced Award Item Styling */
-.timeline-item.award .timeline-content {
-  position: relative;
-  padding: 24px;
-  background: linear-gradient(135deg, rgba(201, 169, 97, 0.08) 0%, rgba(26, 35, 50, 0.03) 100%);
-  border: 2px solid rgba(201, 169, 97, 0.3);
-  border-left: 4px solid var(--color-gold);
-  border-radius: 8px;
-  box-shadow:
-    0 8px 24px rgba(201, 169, 97, 0.15),
-    0 2px 8px rgba(0, 0, 0, 0.1);
-  margin: 8px 0;
-  transform: translateZ(0); /* GPU acceleration */
+@keyframes ambient-glow-pulse {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
 }
 
-/* Gold Title for Award Item */
-.timeline-item.award .timeline-content h3 {
-  color: var(--color-gold);
-  font-weight: 600;
-  /* font-size removed - now matches other event titles */
+@keyframes ambient-pulse {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0.4;
+  }
 }
 
-/* Trophy Icon */
-.award-ceremony-icon {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 32px;
-  height: 32px;
-  color: var(--color-gold);
-  animation: award-glow 4s ease-in-out infinite;
-  will-change: filter;
-  pointer-events: none;
+@keyframes aurora-flow {
+  0% {
+    background-position: 0 50%;
+  }
+  25% {
+    background-position: 50% 75%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  75% {
+    background-position: 50% 25%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
 }
 
-/* Glow Pulse Animation */
 @keyframes award-glow {
   0%, 100% {
     filter: drop-shadow(0 0 4px rgba(201, 169, 97, 0.3));
@@ -2118,120 +1936,26 @@ img {
   }
 }
 
-/* Timeline dot styling for award */
-.timeline-item.award::before {
-  background: linear-gradient(135deg, var(--color-gold), var(--color-gold-dark));
-  box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.3);
-  animation: none;
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-  .timeline-item.award .timeline-content {
-    padding: 20px;
+@keyframes awardGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 0 4px rgba(201, 169, 97, 0.2),
+      0 4px 16px rgba(201, 169, 97, 0.4),
+      0 0 20px rgba(255, 215, 0, 0.3);
   }
-
-  .award-ceremony-icon {
-    width: 24px;
-    height: 24px;
-    top: 12px;
-    right: 12px;
-  }
-
-  .timeline-item.award .timeline-content h3 {
-    font-size: 1.05em;
-    padding-right: 32px; /* Space for icon */
-  }
-
-  /* Reduced animation intensity on mobile */
-  @keyframes award-glow {
-    0%, 100% {
-      filter: drop-shadow(0 0 3px rgba(201, 169, 97, 0.25));
-      opacity: 0.95;
-    }
-    50% {
-      filter: drop-shadow(0 0 8px rgba(201, 169, 97, 0.5));
-      opacity: 1;
-    }
+  50% {
+    box-shadow:
+      0 0 0 6px rgba(201, 169, 97, 0.25),
+      0 6px 20px rgba(201, 169, 97, 0.5),
+      0 0 30px rgba(255, 215, 0, 0.4);
   }
 }
 
-/* Accessibility: Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-  .award-ceremony-icon {
-    animation: none !important;
-    filter: drop-shadow(0 0 4px rgba(201, 169, 97, 0.3));
-    opacity: 1;
-  }
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
 }
 
-/* ============================================
-   AWARD CEREMONY - CONFETTI ANIMATION
-   ============================================ */
-
-/* Confetti Container */
-.award-confetti-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-  overflow: hidden;
-}
-
-/* Base Confetti Particle */
-.confetti-particle {
-  position: absolute;
-  top: -10px;
-  left: var(--start-x);
-  opacity: 0;
-  will-change: transform, opacity;
-  animation: confetti-fall 6s ease-in-out infinite;
-  animation-delay: var(--delay);
-}
-
-/* Gold Confetti - Soft Glowing Light Particles */
-.confetti-particle.gold {
-  width: 8px;
-  height: 8px;
-  background: radial-gradient(circle, rgba(255, 215, 0, 0.9) 0%, rgba(201, 169, 97, 0.7) 40%, transparent 90%);
-  border-radius: 50%;
-  box-shadow:
-    0 0 10px rgba(255, 215, 0, 0.8),
-    0 0 20px rgba(201, 169, 97, 0.5),
-    0 0 30px rgba(201, 169, 97, 0.3);
-  filter: blur(1px);
-}
-
-/* Red Confetti - Elegant Glowing Accent */
-.confetti-particle.red {
-  width: 7px;
-  height: 7px;
-  background: radial-gradient(circle, rgba(201, 31, 38, 0.85) 0%, rgba(165, 23, 29, 0.6) 40%, transparent 90%);
-  border-radius: 50%;
-  box-shadow:
-    0 0 8px rgba(165, 23, 29, 0.7),
-    0 0 16px rgba(165, 23, 29, 0.4),
-    0 0 24px rgba(165, 23, 29, 0.2);
-  filter: blur(0.8px);
-}
-
-/* Navy Confetti - Subtle Premium Accent */
-.confetti-particle.navy {
-  width: 6px;
-  height: 6px;
-  background: radial-gradient(circle, rgba(45, 62, 80, 0.8) 0%, rgba(26, 35, 50, 0.5) 40%, transparent 90%);
-  border-radius: 50%;
-  box-shadow:
-    0 0 6px rgba(45, 62, 80, 0.6),
-    0 0 12px rgba(26, 35, 50, 0.3),
-    0 0 18px rgba(26, 35, 50, 0.15);
-  filter: blur(0.7px);
-}
-
-/* Confetti Fall Animation - Graceful and Elegant */
 @keyframes confetti-fall {
   0% {
     transform: translateY(0) translateX(0) rotate(0deg) scale(0.8);
@@ -2249,285 +1973,207 @@ img {
   }
 }
 
-/* Ensure award content clips confetti at edges */
-.timeline-item.award .timeline-content {
-  overflow: hidden;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-/* Mobile: Reduce particle count and simplify */
-@media (max-width: 767px) {
-  /* Hide some particles on mobile for performance */
-  .confetti-particle:nth-child(n+7) {
-    display: none;
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
   }
-
-  /* Faster fall on mobile */
-  .confetti-particle {
-    animation-duration: 3.5s;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* Very small mobile: Remove confetti entirely */
-@media (max-width: 480px) {
-  .award-confetti-container {
-    display: none;
+@keyframes fall {
+  0% {
+    transform: translateY(0vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  90% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
   }
 }
 
-/* Accessibility: Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-  .award-confetti-container {
-    display: none !important;
-  }
-}
-
-/* CTA Section snowflakes - behind footer */
-.cta-section .snowflakes {
-  z-index: 1; /* Behind footer glass panel */
-}
-
-.cta-section .snowflakes .snowflake {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-/* Performance optimization: reduce motion for users who prefer it */
-@media (prefers-reduced-motion: reduce) {
-  .snowflake,
-  .sparkle,
-  .timeline-item.award::before {
-    animation: none;
-  }
-
-  .snowflake {
-    display: none;
-  }
-}
-
-/* Hide decorative elements on smaller screens to maintain performance */
-@media only screen and (max-width: 768px) {
-  .sparkle {
-    display: none;
-  }
-
-  .snowflake:nth-child(n+7) {
-    display: none;
-  }
-}
-
-/* ==========================================================================
-   Apple 2025 Style Button - Gentle, Modern Aesthetic
-   ========================================================================== */
-
-/* Soft Glassmorphic CTA Button - Apple 2025 Aesthetic */
-.glass-button {
-  /* Light, delicate glass with subtle warmth */
-  background: rgba(255, 255, 255, 0.18) !important;
-
-  /* Gentle backdrop blur - soft and airy */
-  backdrop-filter: blur(14px) saturate(120%);
-  -webkit-backdrop-filter: blur(14px) saturate(120%);
-
-  /* Minimal border - barely visible */
-  border: 1px solid rgba(255, 255, 255, 0.25);
-
-  /* Single soft shadow - no complex layering */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-
-  /* Clean, readable typography */
-  color: var(--color-white) !important;
-  font-weight: 500;
-  letter-spacing: 0.3px;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-
-  /* Comfortable button size */
-  padding: 1.15rem 3rem;
-  font-size: 1.15rem;
-
-  /* Modern, generous rounded corners */
-  border-radius: 16px;
-
-  /* Increased bottom margin for better separation from glass pills */
-  margin-bottom: 2rem;
-
-  /* Smooth, calm transitions */
-  transition: all 0.4s ease;
-
-  /* Position for proper stacking */
-  position: relative;
-  z-index: 2;
-}
-
-/* Glass button hover state - Gentle lift */
-.glass-button:hover {
-  background: rgba(255, 255, 255, 0.22) !important;
-  border-color: rgba(255, 255, 255, 0.35);
-
-  /* Subtle lift effect - refined */
-  transform: translateY(-2px);
-
-  /* Soft elevated shadow */
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
-}
-
-/* Glass button active state - Gentle press */
-.glass-button:active {
-  transform: translateY(0px);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-}
-
-/* Glass Pills Container */
-.glass-pills {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 2rem;
-  flex-wrap: wrap;
-  position: relative;
-  z-index: 1;
-}
-
-/* Individual Glass Pill */
-.glass-pill {
-  /* Glassmorphism with lighter effect than button */
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(16px) saturate(150%);
-  -webkit-backdrop-filter: blur(16px) saturate(150%);
-
-  /* Subtle border and shadow */
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow:
-    0 4px 16px rgba(0, 0, 0, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-
-  /* Layout */
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: 50px;
-
-  /* Typography - locked color */
-  font-size: 1rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.95) !important;
-  text-decoration: none;
-
-  /* Smooth transitions - excludes color properties */
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              border 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              backdrop-filter 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-}
-
-/* Glass pill text - locked color on all states */
-.glass-pill span {
-  color: rgba(255, 255, 255, 0.95) !important;
-}
-
-/* Glass pill icons - locked color on all states */
-.glass-pill .icon,
-.glass-pill svg {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-  opacity: 0.9;
-  color: rgba(255, 255, 255, 0.95) !important;
-  stroke: currentColor !important;
-  fill: none !important;
-}
-
-/* Lock colors on hover state */
-.glass-pill:hover,
-.glass-pill:hover span,
-.glass-pill:hover .icon,
-.glass-pill:hover svg {
-  color: rgba(255, 255, 255, 0.95) !important;
-}
-
-/* Glass pill hover effect */
-.glass-pill:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.25);
-  transform: translateY(-2px);
-  box-shadow:
-    0 6px 20px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
-}
-
-/* Lock colors on active state */
-.glass-pill:active,
-.glass-pill:active span,
-.glass-pill:active .icon,
-.glass-pill:active svg {
-  color: rgba(255, 255, 255, 0.95) !important;
-}
-
-/* Glass pill active (click) effect */
-.glass-pill:active {
-  transform: translateY(0);
-  box-shadow:
-    0 3px 12px rgba(0, 0, 0, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-/* Lock colors on focus state */
-.glass-pill:focus,
-.glass-pill:focus span,
-.glass-pill:focus .icon,
-.glass-pill:focus svg {
-  color: rgba(255, 255, 255, 0.95) !important;
-}
-
-/* Glass pill focus state for keyboard navigation */
-.glass-pill:focus {
-  outline: 2px solid rgba(255, 255, 255, 0.6);
-  outline-offset: 3px;
-}
-
-.glass-pill:focus:not(:focus-visible) {
-  outline: none;
-}
-
-.glass-pill:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.6);
-  outline-offset: 3px;
-  background: rgba(255, 255, 255, 0.12);
-}
-
-/* Lock colors on focus-visible state */
-.glass-pill:focus-visible,
-.glass-pill:focus-visible span,
-.glass-pill:focus-visible .icon,
-.glass-pill:focus-visible svg {
-  color: rgba(255, 255, 255, 0.95) !important;
-}
-
-/* Optional: Add subtle animation to glass elements */
 @keyframes glassShimmer {
   0%, 100% {
-    background-position: 0% 50%;
+    background-position: 0 50%;
   }
   50% {
     background-position: 100% 50%;
   }
 }
 
-/* Fallback for browsers without backdrop-filter support */
-@supports not (backdrop-filter: blur(20px)) {
-  .glass-button {
-    background: rgba(201, 169, 97, 0.85) !important;
+@keyframes mesh-morph {
+  0% {
+    background-position: 0 50%;
   }
-
-  .glass-pill {
-    background: rgba(26, 35, 50, 0.7);
+  33% {
+    background-position: 50% 100%;
+  }
+  66% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
   }
 }
 
-/* Tablet Responsive Adjustments */
-@media only screen and (max-width: 1024px) and (min-width: 769px) {
+@keyframes noise-movement {
+  0%, 100% {
+    transform: translate(0, 0);
+    opacity: 0.05;
+  }
+  50% {
+    transform: translate(2px, 2px);
+    opacity: 0.07;
+  }
+}
+
+@keyframes particle-float {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(10px, -15px);
+  }
+  50% {
+    transform: translate(-8px, 12px);
+  }
+  75% {
+    transform: translate(12px, 8px);
+  }
+}
+
+@keyframes powder-drift {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(-10px, 15px) rotate(2deg);
+  }
+  50% {
+    transform: translate(12px, -10px) rotate(-2deg);
+  }
+  75% {
+    transform: translate(-8px, -12px) rotate(1deg);
+  }
+}
+
+@keyframes radial-pulse {
+  0%, 100% {
+    opacity: 0.03;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.08;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes shimmer-pulse {
+  0%, 100% {
+    opacity: 0.05;
+  }
+  50% {
+    opacity: 0.15;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes smooth-gradient {
+  0%, 100% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.5); }
+}
+
+@keyframes wave-gradient {
+  0% {
+    background-position: 0 30%;
+  }
+  25% {
+    background-position: 40% 60%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  75% {
+    background-position: 60% 40%;
+  }
+  100% {
+    background-position: 0 30%;
+  }
+}
+
+/* ==========================================================================
+   Responsive Design (Phase 10: Consolidated Media Queries)
+   ========================================================================== */
+
+/* Tablet: 1024px */
+@media (max-width: 1024px) {
+  .venue-content {
+    grid-template-columns: 1fr;
+  }
+
+  .venue-map {
+    height: 350px;
+  }
+
+  .modal-content {
+    max-width: 95%;
+    margin: 2.5vh auto;
+    max-height: 95vh;
+  }
+
+  .modal-body {
+    grid-template-columns: 1fr;
+    padding: 2rem;
+    gap: 2rem;
+  }
+
+  .modal-photo {
+    position: relative;
+  }
+
+  .modal-photo img {
+    height: 400px;
+  }
+
+  .modal-name {
+    font-size: 1.875rem;
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
   .glass-button {
     margin-bottom: 1.75rem;
   }
@@ -2535,10 +2181,228 @@ img {
   .glass-pills {
     margin-top: 1.75rem;
   }
+
+  .program::after {
+    opacity: 0.4;
+  }
+
+  .cta-section::after {
+    opacity: 0.5;
+  }
 }
 
-/* Mobile Responsive Adjustments */
-@media only screen and (max-width: 768px) {
+/* Mobile: 768px */
+@media (max-width: 768px) {
+  :root {
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    --spacing-xxl: 4rem;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: var(--spacing-xl) 0;
+  }
+
+  .hero-logo {
+    max-width: 150px;
+  }
+
+  .hero-background {
+    background-size: 600% 600%;
+    animation-duration: 35s;
+  }
+
+  .hero-title {
+    gap: 0.35rem;
+  }
+
+  .hero-title-prelude {
+    font-size: clamp(1.1rem, 4vw, 1.4rem);
+    letter-spacing: 0.3px;
+  }
+
+  .hero-title-main {
+    font-size: clamp(1.75rem, 6vw, 2.5rem);
+    letter-spacing: -0.3px;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-bottom: 2rem;
+    text-align: left;
+    padding: 0 1rem;
+  }
+
+  .hero-details {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .scroll-indicator {
+    display: none;
+  }
+
+  .benefits-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .benefit-card {
+    backdrop-filter: var(--glass-blur-light) var(--glass-saturation) var(--glass-brightness);
+    -webkit-backdrop-filter: var(--glass-blur-light) var(--glass-saturation) var(--glass-brightness);
+  }
+
+  .timeline::before {
+    left: 9px;
+    top: 5px;
+  }
+
+  .timeline-item {
+    padding-left: var(--spacing-lg);
+  }
+
+  .timeline-item::before {
+    left: 0;
+  }
+
+  .timeline-item.award .timeline-content {
+    padding: 20px;
+  }
+
+  .award-ceremony-icon {
+    width: 24px;
+    height: 24px;
+    top: 12px;
+    right: 12px;
+  }
+
+  .timeline-item.award .timeline-content h3 {
+    font-size: 1.05em;
+    padding-right: 32px;
+  }
+
+  .speakers-preview {
+    gap: 1rem;
+  }
+
+  .speaker-mini-card img {
+    width: 60px;
+    height: 60px;
+    border-width: 2px;
+  }
+
+  .speaker-mini-card span {
+    font-size: 0.75rem;
+  }
+
+  .moderator-accent-block {
+    max-width: 100%;
+    margin: 24px 0;
+  }
+
+  .moderator-accent-block__content {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px 24px;
+    gap: 16px;
+  }
+
+  .moderator-accent-block__text {
+    order: 2;
+  }
+
+  .moderator-accent-block__photo-wrapper {
+    order: 1;
+    width: 60px;
+    height: 60px;
+  }
+
+  .moderator-badge {
+    font-size: 9px;
+    padding: 3px 10px;
+  }
+
+  .moderator-badge .badge-icon {
+    width: 12px;
+    height: 12px;
+  }
+
+  .moderator-accent-block__name {
+    font-size: 20px;
+  }
+
+  .moderator-accent-block__title {
+    font-size: 14px;
+  }
+
+  .venue-map {
+    height: 300px;
+  }
+
+  .map-link {
+    padding: 12px 20px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .modal-content {
+    border-radius: var(--radius-md);
+  }
+
+  .modal-body {
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .modal-close {
+    width: 40px;
+    height: 40px;
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .modal-photo img {
+    height: 350px;
+  }
+
+  .modal-name {
+    font-size: 1.625rem;
+  }
+
+  .modal-position {
+    font-size: 1rem;
+  }
+
+  .modal-bio {
+    font-size: 0.9375rem;
+  }
+
+  .sparkle {
+    display: none;
+  }
+
+  .snowflake:nth-child(n+7) {
+    display: none;
+  }
+
+  .cta-section {
+    padding: 64px 0 0;
+  }
+
+  .cta-button {
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .cta-content h2 {
+    font-size: 1.8rem;
+  }
+
   .glass-button {
     padding: 1rem 2.25rem;
     font-size: 1.05rem;
@@ -2560,9 +2424,138 @@ img {
     justify-content: center;
     padding: 0.85rem 1.25rem;
   }
+
+  .footer {
+    margin-top: 60px;
+    padding: 0;
+  }
+
+  .footer-content {
+    padding: 40px 32px 40px 32px;
+    border-radius: 18px 18px 0 0;
+    backdrop-filter: var(--glass-blur-light) var(--glass-saturation);
+    -webkit-backdrop-filter: var(--glass-blur-light) var(--glass-saturation);
+  }
+
+  .footer-logo img {
+    max-width: 120px;
+  }
+
+  .program::after {
+    opacity: 0.2;
+    animation-duration: 30s;
+  }
+
+  .cta-section::after {
+    opacity: 0.3;
+    animation-duration: 35s;
+    filter: blur(5px);
+  }
+
+  .benefits::before {
+    opacity: 0.03;
+  }
+
+  .cta-section::after {
+    filter: blur(3px);
+  }
+
+  .confetti-particle:nth-child(n+7) {
+    display: none;
+  }
+
+  .confetti-particle {
+    animation-duration: 3.5s;
+  }
 }
 
-@media only screen and (max-width: 480px) {
+/* Small Mobile: 480px */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 var(--spacing-sm);
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    line-height: 1.65;
+    margin-bottom: 1.75rem;
+    text-align: left;
+    padding: 0 0.5rem;
+  }
+
+  .hero-logo,
+  .footer-logo img {
+    max-width: 120px;
+  }
+
+  .benefit-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .benefit-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .benefit-card {
+    padding: 24px 20px;
+  }
+
+  .venue-detail .icon {
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+  }
+
+  .venue-detail,
+  .timeline-content {
+    padding: 20px 16px;
+  }
+
+  .venue-map {
+    height: 250px;
+  }
+
+  .timeline-time {
+    font-size: 0.875rem;
+    padding: 0.6rem 1rem;
+  }
+
+  .moderator-accent-block__content {
+    padding: 16px 20px;
+  }
+
+  .moderator-accent-block__photo-wrapper {
+    width: 50px;
+    height: 50px;
+  }
+
+  .moderator-accent-block__name {
+    font-size: 18px;
+  }
+
+  .moderator-accent-block__title {
+    font-size: 13px;
+  }
+
+  .cta-section {
+    padding: 48px 0 0;
+  }
+
+  .cta-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .cta-content p {
+    font-size: 1rem;
+  }
+
+  .cta-note {
+    padding: 12px 20px;
+    font-size: 0.875rem;
+  }
+
   .glass-button {
     padding: 0.95rem 1.75rem;
     font-size: 1rem;
@@ -2577,20 +2570,54 @@ img {
     width: 18px;
     height: 18px;
   }
+
+  .footer {
+    margin-top: 48px;
+    padding: 0;
+  }
+
+  .footer-content {
+    padding: 36px 24px 36px 24px;
+    gap: 20px;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    max-width: calc(100% - 32px);
+  }
+
+  .footer-logo img {
+    max-width: 100px;
+  }
+
+  .footer-info p {
+    font-size: 0.8125rem;
+  }
+
+  .footer-info p:first-child {
+    font-size: 0.875rem;
+  }
+
+  .program::after,
+  .cta-section::after {
+    display: none;
+  }
+
+  .benefits::before {
+    animation: none;
+    opacity: 0.02;
+  }
+
+  .award-confetti-container {
+    display: none;
+  }
 }
 
-@media only screen and (max-width: 375px) {
-  /* Hero subtitle very small mobile optimization */
+/* Tiny Mobile: 375px */
+@media (max-width: 375px) {
   .hero-subtitle {
     font-size: 0.9375rem;
     line-height: 1.65;
     margin-bottom: 1.5rem;
     text-align: left;
     padding: 0 0.25rem;
-  }
-
-  .glass-pill {
-    max-width: calc(100vw - 2rem);
   }
 
   .hero-logo,
@@ -2621,10 +2648,54 @@ img {
   .venue-map {
     height: 220px;
   }
+
+  .glass-pill {
+    max-width: calc(100vw - 2rem);
+  }
 }
 
-/* Accessibility: Reduced Motion */
+/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
+  .hero-background,
+  .hero-background::before,
+  .hero-background::after {
+    animation: none !important;
+  }
+
+  .hero-background {
+    background-position: 0 50%;
+  }
+
+  .hero-title-main {
+    filter: none;
+  }
+
+  .snowflake,
+  .sparkle,
+  .timeline-item.award::before {
+    animation: none;
+    display: none;
+  }
+
+  .award-ceremony-icon {
+    animation: none !important;
+    filter: drop-shadow(0 0 4px rgba(201, 169, 97, 0.3));
+    opacity: 1;
+  }
+
+  .award-confetti-container {
+    display: none !important;
+  }
+
+  .moderator-accent-block,
+  .speaker-modal.active,
+  .modal-content,
+  .modal-close,
+  .speaker-mini-card {
+    animation: none;
+    transition: none;
+  }
+
   .glass-button,
   .glass-pill {
     transition: none;
@@ -2634,453 +2705,7 @@ img {
   .glass-pill:hover {
     transform: none;
   }
-}
 
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  .glass-button {
-    background: rgba(201, 169, 97, 0.5) !important;
-    border-width: 2px;
-  }
-
-  .glass-pill {
-    background: rgba(255, 255, 255, 0.15);
-    border-width: 1.5px;
-  }
-}
-
-/* ==========================================================================
-   Apple 2025 Liquid Glass Animated Backgrounds
-   ========================================================================== */
-
-/* ============================================
-   SECTION 1: Benefits - Noise Texture + Mesh Gradient
-   ============================================ */
-
-.benefits {
-  position: relative;
-  overflow: hidden;
-}
-
-/* Noise texture overlay */
-.benefits::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><filter id="n"><feTurbulence baseFrequency="0.9" numOctaves="3" type="fractalNoise"/></filter><rect width="200" height="200" filter="url(%23n)" opacity="0.05"/></svg>');
-  opacity: 1;
-  pointer-events: none;
-  z-index: 0;
-  animation: noise-movement 50s ease-in-out infinite alternate;
-  mix-blend-mode: overlay;
-}
-
-/* Morphing mesh gradient */
-.benefits::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    135deg,
-    rgba(248, 249, 250, 0.1) 0%,
-    rgba(255, 255, 255, 0.08) 25%,
-    rgba(201, 169, 97, 0.1) 50%,
-    rgba(255, 255, 255, 0.08) 75%,
-    rgba(248, 249, 250, 0.1) 100%
-  );
-  background-size: 400% 400%;
-  animation: mesh-morph 50s ease-in-out infinite alternate;
-  pointer-events: none;
-  z-index: 0;
-  mix-blend-mode: soft-light;
-}
-
-@keyframes noise-movement {
-  0%, 100% {
-    transform: translate(0, 0);
-    opacity: 0.05;
-  }
-  50% {
-    transform: translate(2px, 2px);
-    opacity: 0.07;
-  }
-}
-
-@keyframes mesh-morph {
-  0% {
-    background-position: 0% 50%;
-  }
-  33% {
-    background-position: 50% 100%;
-  }
-  66% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* Ensure content is above background layers */
-.benefits > .container {
-  position: relative;
-  z-index: 1;
-}
-
-/* ============================================
-   SECTION 2: Venue - Aurora Gradient Effect
-   ============================================ */
-
-.venue {
-  position: relative;
-  overflow: hidden;
-}
-
-/* Aurora flowing gradient */
-.venue::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    135deg,
-    rgba(248, 249, 250, 0.08) 0%,
-    rgba(201, 169, 97, 0.12) 20%,
-    rgba(255, 255, 255, 0.1) 40%,
-    rgba(165, 23, 29, 0.08) 60%,
-    rgba(248, 249, 250, 0.08) 80%,
-    rgba(201, 169, 97, 0.1) 100%
-  );
-  background-size: 700% 700%;
-  animation: aurora-flow 45s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 0;
-  mix-blend-mode: overlay;
-}
-
-@keyframes aurora-flow {
-  0% {
-    background-position: 0% 50%;
-  }
-  25% {
-    background-position: 50% 75%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  75% {
-    background-position: 50% 25%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* Ensure content is above background layers */
-.venue > .container {
-  position: relative;
-  z-index: 1;
-}
-
-/* ============================================
-   SECTION 3: Footer - Ambient Glow Pulse
-   ============================================ */
-
-.footer {
-  position: relative;
-  overflow: hidden;
-}
-
-/* Dual radial gradient glow pulse */
-.footer::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background:
-    radial-gradient(
-      ellipse at 30% 40%,
-      rgba(201, 169, 97, 0.06) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      ellipse at 70% 60%,
-      rgba(255, 255, 255, 0.04) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      ellipse at 50% 50%,
-      rgba(201, 169, 97, 0.03) 0%,
-      transparent 60%
-    );
-  animation: ambient-glow-pulse 70s ease-in-out infinite alternate;
-  pointer-events: none;
-  z-index: 0;
-  mix-blend-mode: screen;
-  opacity: 0.8;
-}
-
-@keyframes ambient-glow-pulse {
-  0% {
-    opacity: 0.6;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.9;
-    transform: scale(1.05);
-  }
-  100% {
-    opacity: 0.6;
-    transform: scale(1);
-  }
-}
-
-/* Ensure content is above background layers */
-.footer > .container {
-  position: relative;
-}
-
-/* ============================================
-   SECTION 4: Program - Floating Particles + Radial Pulse
-   ============================================ */
-
-.program {
-  position: relative;
-  overflow: hidden;
-}
-
-/* Radial gradient pulse overlay */
-.program::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(
-    ellipse at 50% 50%,
-    rgba(201, 169, 97, 0.08) 0%,
-    rgba(26, 35, 50, 0.05) 40%,
-    transparent 70%
-  );
-  animation: radial-pulse 35s ease-in-out infinite alternate;
-  pointer-events: none;
-  z-index: 0;
-  mix-blend-mode: overlay;
-}
-
-@keyframes radial-pulse {
-  0%, 100% {
-    opacity: 0.03;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.08;
-    transform: scale(1.1);
-  }
-}
-
-/* Floating particle container */
-.program::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image:
-    radial-gradient(circle at 15% 20%, rgba(201, 169, 97, 0.5) 0%, transparent 4px),
-    radial-gradient(circle at 85% 30%, rgba(26, 35, 50, 0.4) 0%, transparent 5px),
-    radial-gradient(circle at 40% 50%, rgba(201, 169, 97, 0.45) 0%, transparent 4px),
-    radial-gradient(circle at 70% 70%, rgba(26, 35, 50, 0.5) 0%, transparent 6px),
-    radial-gradient(circle at 25% 80%, rgba(201, 169, 97, 0.4) 0%, transparent 5px),
-    radial-gradient(circle at 60% 15%, rgba(26, 35, 50, 0.45) 0%, transparent 4px),
-    radial-gradient(circle at 90% 85%, rgba(201, 169, 97, 0.5) 0%, transparent 5px),
-    radial-gradient(circle at 10% 60%, rgba(26, 35, 50, 0.4) 0%, transparent 6px),
-    radial-gradient(circle at 50% 35%, rgba(201, 169, 97, 0.45) 0%, transparent 4px),
-    radial-gradient(circle at 80% 55%, rgba(26, 35, 50, 0.4) 0%, transparent 5px),
-    radial-gradient(circle at 35% 90%, rgba(201, 169, 97, 0.5) 0%, transparent 6px),
-    radial-gradient(circle at 65% 10%, rgba(26, 35, 50, 0.45) 0%, transparent 4px);
-  background-size: 100% 100%;
-  animation: particle-float 20s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.6;
-}
-
-@keyframes particle-float {
-  0%, 100% {
-    transform: translate(0, 0);
-  }
-  25% {
-    transform: translate(10px, -15px);
-  }
-  50% {
-    transform: translate(-8px, 12px);
-  }
-  75% {
-    transform: translate(12px, 8px);
-  }
-}
-
-/* Ensure content is above background layers */
-.program > .container {
-  position: relative;
-  z-index: 1;
-}
-
-/* ============================================
-   SECTION 5: CTA Section - Powder Cloud Particles + Shimmer
-   ============================================ */
-
-.cta-section {
-  position: relative;
-  overflow: hidden;
-}
-
-/* Shimmer overlay on gradient */
-.cta-section::before {
-  background-image:
-    radial-gradient(
-      circle at 20% 30%,
-      rgba(201, 169, 97, 0.12) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 80% 70%,
-      rgba(255, 255, 255, 0.06) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 50% 50%,
-      rgba(201, 169, 97, 0.08) 0%,
-      transparent 60%
-    );
-  animation: shimmer-pulse 8s ease-in-out infinite;
-  z-index: 0;
-}
-
-@keyframes shimmer-pulse {
-  0%, 100% {
-    opacity: 0.05;
-  }
-  50% {
-    opacity: 0.15;
-  }
-}
-
-/* Powder cloud particles */
-.cta-section::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image:
-    radial-gradient(circle at 20% 25%, rgba(201, 169, 97, 0.6) 0%, transparent 10px),
-    radial-gradient(circle at 75% 35%, rgba(201, 169, 97, 0.5) 0%, transparent 12px),
-    radial-gradient(circle at 40% 60%, rgba(201, 169, 97, 0.55) 0%, transparent 8px),
-    radial-gradient(circle at 85% 70%, rgba(201, 169, 97, 0.5) 0%, transparent 10px),
-    radial-gradient(circle at 15% 80%, rgba(201, 169, 97, 0.6) 0%, transparent 12px),
-    radial-gradient(circle at 60% 15%, rgba(201, 169, 97, 0.4) 0%, transparent 9px),
-    radial-gradient(circle at 90% 50%, rgba(201, 169, 97, 0.55) 0%, transparent 11px),
-    radial-gradient(circle at 30% 45%, rgba(201, 169, 97, 0.5) 0%, transparent 10px),
-    radial-gradient(circle at 70% 85%, rgba(201, 169, 97, 0.6) 0%, transparent 12px),
-    radial-gradient(circle at 10% 40%, rgba(201, 169, 97, 0.45) 0%, transparent 8px);
-  background-size: 100% 100%;
-  filter: blur(4px);
-  animation: powder-drift 25s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.7;
-  mix-blend-mode: screen;
-}
-
-@keyframes powder-drift {
-  0%, 100% {
-    transform: translate(0, 0) rotate(0deg);
-  }
-  25% {
-    transform: translate(-10px, 15px) rotate(2deg);
-  }
-  50% {
-    transform: translate(12px, -10px) rotate(-2deg);
-  }
-  75% {
-    transform: translate(-8px, -12px) rotate(1deg);
-  }
-}
-
-/* ============================================
-   RESPONSIVE OPTIMIZATIONS
-   ============================================ */
-
-/* Tablet: Reduce particle count by hiding some via opacity */
-@media only screen and (max-width: 1023px) and (min-width: 768px) {
-  .program::after {
-    opacity: 0.4;
-  }
-
-  .cta-section::after {
-    opacity: 0.5;
-  }
-}
-
-/* Mobile: Minimal particles, gradient-only fallback */
-@media only screen and (max-width: 767px) {
-  /* Reduce particle complexity */
-  .program::after {
-    opacity: 0.2;
-    animation-duration: 30s;
-  }
-
-  .cta-section::after {
-    opacity: 0.3;
-    animation-duration: 35s;
-    filter: blur(5px);
-  }
-
-  /* Simplify noise animation */
-  .benefits::before {
-    opacity: 0.03;
-  }
-
-  /* Reduce blur on mobile for performance */
-  .cta-section::after {
-    filter: blur(3px);
-  }
-}
-
-/* Very small mobile: Remove particles entirely, keep gradients */
-@media only screen and (max-width: 480px) {
-  .program::after,
-  .cta-section::after {
-    display: none;
-  }
-
-  .benefits::before {
-    animation: none;
-    opacity: 0.02;
-  }
-}
-
-/* ============================================
-   ACCESSIBILITY: REDUCED MOTION
-   ============================================ */
-
-@media (prefers-reduced-motion: reduce) {
-  /* Disable all background animations */
   .benefits::before,
   .benefits::after,
   .venue::before,
@@ -3092,7 +2717,6 @@ img {
     animation: none !important;
   }
 
-  /* Keep static gradient backgrounds */
   .benefits::after {
     background-position: 50% 50%;
   }
@@ -3121,41 +2745,49 @@ img {
   }
 }
 
-/* ============================================
-   PERFORMANCE OPTIMIZATIONS
-   ============================================ */
+/* High Contrast */
+@media (prefers-contrast: more) {
+  .glass-button {
+    background: rgba(201, 169, 97, 0.5) !important;
+    border-width: 2px;
+  }
 
-/* GPU acceleration for animated elements */
-.benefits::before,
-.benefits::after,
-.venue::before,
-.footer::after,
-.program::before,
-.program::after,
-.cta-section::before,
-.cta-section::after {
-  transform: translateZ(0);
-  will-change: auto;
+  .glass-pill {
+    background: rgba(255, 255, 255, 0.15);
+    border-width: 1.5px;
+  }
 }
 
-/* Use will-change only on hover states where needed */
+/* ==========================================================================
+   Performance Optimizations
+   ========================================================================== */
+
 .benefit-card:hover,
 .venue-detail:hover,
 .timeline-content:hover {
   will-change: transform;
 }
 
-/* Layout containment for performance */
 .benefits,
 .venue,
-/*.footer,*/ /* fix for snow */
 .program,
 .cta-section {
   contain: layout paint;
 }
 
+/* Fallback for browsers without backdrop-filter support */
+@supports not (backdrop-filter: blur(20px)) {
+  .glass-button {
+    background: rgba(201, 169, 97, 0.85) !important;
+  }
+
+  .glass-pill {
+    background: rgba(26, 35, 50, 0.7);
+  }
+}
+
 /* ==========================================================================
-   Print styles
+   Print Styles
    ========================================================================== */
 
 @media print {
@@ -3222,7 +2854,7 @@ img {
 }
 
 /* ==========================================================================
-   Helper classes
+   Helper Classes
    ========================================================================== */
 
 .hidden,
@@ -3266,3 +2898,19 @@ img {
 .clearfix::after {
   clear: both;
 }
+
+/* ==========================================================================
+   Naming Convention Documentation (Phase 7)
+   ========================================================================== */
+
+/*
+ * NAMING CONVENTIONS:
+ *
+ * This project uses a hybrid naming approach:
+ * - Component names: kebab-case (e.g., .hero-section, .benefit-card)
+ * - Modifiers: double-dash for BEM-like modifiers (e.g., .moderator-accent-block__content)
+ * - State classes: single word or hyphenated (e.g., .active, .highlight, .award)
+ *
+ * Future refactoring consideration: Full BEM (Block__Element--Modifier) convention
+ * would improve maintainability but requires HTML updates.
+ */
