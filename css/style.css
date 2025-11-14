@@ -424,12 +424,13 @@ img {
 
 .hero-subtitle {
   font-size: 1.2rem;
-  line-height: 1.8;
+  line-height: 1.65;
   margin-bottom: var(--spacing-lg);
   color: var(--color-cream);
-  max-width: 800px;
+  max-width: 680px;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
 }
 
 .hero-details {
@@ -1384,6 +1385,16 @@ img {
     letter-spacing: -0.3px;
   }
 
+  /* Hero subtitle tablet optimization */
+  .hero-subtitle {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-bottom: 2rem;
+    text-align: left;
+    padding: 0 1rem;
+  }
+
   .hero-details {
     flex-direction: column;
     gap: var(--spacing-sm);
@@ -1451,8 +1462,13 @@ img {
     padding: 0 var(--spacing-sm);
   }
 
+  /* Hero subtitle mobile optimization */
   .hero-subtitle {
     font-size: 1rem;
+    line-height: 1.65;
+    margin-bottom: 1.75rem;
+    text-align: left;
+    padding: 0 0.5rem;
   }
 
   .detail-item {
@@ -2504,6 +2520,15 @@ img {
 }
 
 @media only screen and (max-width: 375px) {
+  /* Hero subtitle very small mobile optimization */
+  .hero-subtitle {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    margin-bottom: 1.5rem;
+    text-align: left;
+    padding: 0 0.25rem;
+  }
+
   .glass-pill {
     max-width: calc(100vw - 2rem);
   }
