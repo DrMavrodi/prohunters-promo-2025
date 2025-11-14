@@ -43,7 +43,7 @@ const speakersData = {
   },
   'lana-chuksina': {
     name: 'Лана Чуксина',
-    position: 'Тимлид отдела PR & Communications',
+    position: 'Тимлид отдела PR & Communications, Kolesa Group',
     photo: 'img/lana_chuksina.jpg',
     bio: '',
     topic: '«Inside Out: как внутренняя культура формирует внешний имидж компании»'
