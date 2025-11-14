@@ -2475,6 +2475,512 @@ img {
 }
 
 /* ==========================================================================
+   Apple 2025 Liquid Glass Animated Backgrounds
+   ========================================================================== */
+
+/* ============================================
+   SECTION 1: Benefits - Noise Texture + Mesh Gradient
+   ============================================ */
+
+.benefits {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Noise texture overlay */
+.benefits::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><filter id="n"><feTurbulence baseFrequency="0.9" numOctaves="3" type="fractalNoise"/></filter><rect width="200" height="200" filter="url(%23n)" opacity="0.05"/></svg>');
+  opacity: 1;
+  pointer-events: none;
+  z-index: 0;
+  animation: noise-movement 50s ease-in-out infinite alternate;
+  mix-blend-mode: overlay;
+}
+
+/* Morphing mesh gradient */
+.benefits::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(248, 249, 250, 0.1) 0%,
+    rgba(255, 255, 255, 0.08) 25%,
+    rgba(201, 169, 97, 0.1) 50%,
+    rgba(255, 255, 255, 0.08) 75%,
+    rgba(248, 249, 250, 0.1) 100%
+  );
+  background-size: 400% 400%;
+  animation: mesh-morph 50s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: soft-light;
+}
+
+@keyframes noise-movement {
+  0%, 100% {
+    transform: translate(0, 0);
+    opacity: 0.05;
+  }
+  50% {
+    transform: translate(2px, 2px);
+    opacity: 0.07;
+  }
+}
+
+@keyframes mesh-morph {
+  0% {
+    background-position: 0% 50%;
+  }
+  33% {
+    background-position: 50% 100%;
+  }
+  66% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Ensure content is above background layers */
+.benefits > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================
+   SECTION 2: Venue - Aurora Gradient Effect
+   ============================================ */
+
+.venue {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Aurora flowing gradient */
+.venue::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(248, 249, 250, 0.08) 0%,
+    rgba(201, 169, 97, 0.12) 20%,
+    rgba(255, 255, 255, 0.1) 40%,
+    rgba(165, 23, 29, 0.08) 60%,
+    rgba(248, 249, 250, 0.08) 80%,
+    rgba(201, 169, 97, 0.1) 100%
+  );
+  background-size: 700% 700%;
+  animation: aurora-flow 45s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: overlay;
+}
+
+@keyframes aurora-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 50% 75%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  75% {
+    background-position: 50% 25%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Ensure content is above background layers */
+.venue > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================
+   SECTION 3: Footer - Ambient Glow Pulse
+   ============================================ */
+
+.footer {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Dual radial gradient glow pulse */
+.footer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(
+      ellipse at 30% 40%,
+      rgba(201, 169, 97, 0.06) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 70% 60%,
+      rgba(255, 255, 255, 0.04) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 50% 50%,
+      rgba(201, 169, 97, 0.03) 0%,
+      transparent 60%
+    );
+  animation: ambient-glow-pulse 70s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: screen;
+  opacity: 0.8;
+}
+
+@keyframes ambient-glow-pulse {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+}
+
+/* Ensure content is above background layers */
+.footer > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================
+   SECTION 4: Program - Floating Particles + Radial Pulse
+   ============================================ */
+
+.program {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Radial gradient pulse overlay */
+.program::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(201, 169, 97, 0.08) 0%,
+    rgba(26, 35, 50, 0.05) 40%,
+    transparent 70%
+  );
+  animation: radial-pulse 35s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: overlay;
+}
+
+@keyframes radial-pulse {
+  0%, 100% {
+    opacity: 0.03;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.08;
+    transform: scale(1.1);
+  }
+}
+
+/* Floating particle container */
+.program::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(201, 169, 97, 0.5) 0%, transparent 4px),
+    radial-gradient(circle at 85% 30%, rgba(26, 35, 50, 0.4) 0%, transparent 5px),
+    radial-gradient(circle at 40% 50%, rgba(201, 169, 97, 0.45) 0%, transparent 4px),
+    radial-gradient(circle at 70% 70%, rgba(26, 35, 50, 0.5) 0%, transparent 6px),
+    radial-gradient(circle at 25% 80%, rgba(201, 169, 97, 0.4) 0%, transparent 5px),
+    radial-gradient(circle at 60% 15%, rgba(26, 35, 50, 0.45) 0%, transparent 4px),
+    radial-gradient(circle at 90% 85%, rgba(201, 169, 97, 0.5) 0%, transparent 5px),
+    radial-gradient(circle at 10% 60%, rgba(26, 35, 50, 0.4) 0%, transparent 6px),
+    radial-gradient(circle at 50% 35%, rgba(201, 169, 97, 0.45) 0%, transparent 4px),
+    radial-gradient(circle at 80% 55%, rgba(26, 35, 50, 0.4) 0%, transparent 5px),
+    radial-gradient(circle at 35% 90%, rgba(201, 169, 97, 0.5) 0%, transparent 6px),
+    radial-gradient(circle at 65% 10%, rgba(26, 35, 50, 0.45) 0%, transparent 4px);
+  background-size: 100% 100%;
+  animation: particle-float 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+@keyframes particle-float {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(10px, -15px);
+  }
+  50% {
+    transform: translate(-8px, 12px);
+  }
+  75% {
+    transform: translate(12px, 8px);
+  }
+}
+
+/* Ensure content is above background layers */
+.program > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================
+   SECTION 5: CTA Section - Powder Cloud Particles + Shimmer
+   ============================================ */
+
+.cta-section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer overlay on gradient */
+.cta-section::before {
+  background-image:
+    radial-gradient(
+      circle at 20% 30%,
+      rgba(201, 169, 97, 0.12) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(255, 255, 255, 0.06) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(201, 169, 97, 0.08) 0%,
+      transparent 60%
+    );
+  animation: shimmer-pulse 8s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes shimmer-pulse {
+  0%, 100% {
+    opacity: 0.05;
+  }
+  50% {
+    opacity: 0.15;
+  }
+}
+
+/* Powder cloud particles */
+.cta-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(circle at 20% 25%, rgba(201, 169, 97, 0.6) 0%, transparent 10px),
+    radial-gradient(circle at 75% 35%, rgba(201, 169, 97, 0.5) 0%, transparent 12px),
+    radial-gradient(circle at 40% 60%, rgba(201, 169, 97, 0.55) 0%, transparent 8px),
+    radial-gradient(circle at 85% 70%, rgba(201, 169, 97, 0.5) 0%, transparent 10px),
+    radial-gradient(circle at 15% 80%, rgba(201, 169, 97, 0.6) 0%, transparent 12px),
+    radial-gradient(circle at 60% 15%, rgba(201, 169, 97, 0.4) 0%, transparent 9px),
+    radial-gradient(circle at 90% 50%, rgba(201, 169, 97, 0.55) 0%, transparent 11px),
+    radial-gradient(circle at 30% 45%, rgba(201, 169, 97, 0.5) 0%, transparent 10px),
+    radial-gradient(circle at 70% 85%, rgba(201, 169, 97, 0.6) 0%, transparent 12px),
+    radial-gradient(circle at 10% 40%, rgba(201, 169, 97, 0.45) 0%, transparent 8px);
+  background-size: 100% 100%;
+  filter: blur(4px);
+  animation: powder-drift 25s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.7;
+  mix-blend-mode: screen;
+}
+
+@keyframes powder-drift {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(-10px, 15px) rotate(2deg);
+  }
+  50% {
+    transform: translate(12px, -10px) rotate(-2deg);
+  }
+  75% {
+    transform: translate(-8px, -12px) rotate(1deg);
+  }
+}
+
+/* ============================================
+   RESPONSIVE OPTIMIZATIONS
+   ============================================ */
+
+/* Tablet: Reduce particle count by hiding some via opacity */
+@media only screen and (max-width: 1023px) and (min-width: 768px) {
+  .program::after {
+    opacity: 0.4;
+  }
+
+  .cta-section::after {
+    opacity: 0.5;
+  }
+}
+
+/* Mobile: Minimal particles, gradient-only fallback */
+@media only screen and (max-width: 767px) {
+  /* Reduce particle complexity */
+  .program::after {
+    opacity: 0.2;
+    animation-duration: 30s;
+  }
+
+  .cta-section::after {
+    opacity: 0.3;
+    animation-duration: 35s;
+    filter: blur(5px);
+  }
+
+  /* Simplify noise animation */
+  .benefits::before {
+    opacity: 0.03;
+  }
+
+  /* Reduce blur on mobile for performance */
+  .cta-section::after {
+    filter: blur(3px);
+  }
+}
+
+/* Very small mobile: Remove particles entirely, keep gradients */
+@media only screen and (max-width: 480px) {
+  .program::after,
+  .cta-section::after {
+    display: none;
+  }
+
+  .benefits::before {
+    animation: none;
+    opacity: 0.02;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY: REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Disable all background animations */
+  .benefits::before,
+  .benefits::after,
+  .venue::before,
+  .footer::after,
+  .program::before,
+  .program::after,
+  .cta-section::before,
+  .cta-section::after {
+    animation: none !important;
+  }
+
+  /* Keep static gradient backgrounds */
+  .benefits::after {
+    background-position: 50% 50%;
+  }
+
+  .venue::before {
+    background-position: 50% 50%;
+  }
+
+  .footer::after {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+
+  .program::before {
+    opacity: 0.05;
+    transform: scale(1);
+  }
+
+  .program::after,
+  .cta-section::after {
+    transform: translate(0, 0);
+  }
+
+  .cta-section::before {
+    opacity: 0.08;
+  }
+}
+
+/* ============================================
+   PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+
+/* GPU acceleration for animated elements */
+.benefits::before,
+.benefits::after,
+.venue::before,
+.footer::after,
+.program::before,
+.program::after,
+.cta-section::before,
+.cta-section::after {
+  transform: translateZ(0);
+  will-change: auto;
+}
+
+/* Use will-change only on hover states where needed */
+.benefit-card:hover,
+.venue-detail:hover,
+.timeline-content:hover {
+  will-change: transform;
+}
+
+/* Layout containment for performance */
+.benefits,
+.venue,
+.footer,
+.program,
+.cta-section {
+  contain: layout paint;
+}
+
+/* ==========================================================================
    Print styles
    ========================================================================== */
 
